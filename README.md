@@ -1,6 +1,6 @@
 # Portfolio Chatbot API
 
-A sophisticated AI-powered chatbot API that serves as an interactive interface for my portfolio website. Built with FastAPI and CrewAI, it provides intelligent responses about my projects, skills, and professional background.
+A sophisticated AI-powered chatbot API that serves as an interactive interface for my portfolio website. Built with FastAPI and CrewAI's intelligent agents, it provides dynamic responses about my projects, skills, and professional background through a coordinated multi-agent system.
 
 ## Overview
 
@@ -20,9 +20,10 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive a
   - Personalized response generation
 
 - **Secure API Design**
-  - FastAPI-based REST endpoints
-  - CORS protection
-  - Environment-based configuration
+  - FastAPI-based REST endpoints  
+  - CORS protection  
+  - Environment-based configuration  
+  - Cookie-based session management 
 
 - **Email Integration**
   - Gmail API integration for automated communications
@@ -32,12 +33,13 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive a
 ## Tech Stack
 
 - **Backend Framework**: FastAPI
-- **AI Framework**: CrewAI
+- **AI Framework**: CrewAI and LangChain
 - **Embedding Model**: Google Text Embedding
 - **Memory Storage**: Mem0
 - **Language**: Python 3.x
 - **Email Service**: Gmail API
 - **Version Control**: GitHub API
+- **Monitoring**: AgentOps
 
 ## Setup
 
@@ -47,6 +49,8 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive a
    MEM0_API_KEY=your_mem0_api_key
    GEMINI_API_KEY=your_gemini_api_key
    GITHUB_TOKEN=your_github_token
+   GOOGLE_API_KEY_2=your_gemini_api_key
+   AGENTOPS_API_KEY=your_agentips_api_key
    ```
 
 2. **Installation**
@@ -112,6 +116,8 @@ The project follows a modular architecture with several key components:
    - Request/Response handling
 
 2. **Agent System** (`utils/agents.py`)
+   - Built-in caching and delegation capabilities
+   - Google Text Embedding integration
    - General Information Agent: Handles personal and background info
    - Repository Agent: Manages GitHub project data
    - About Repository Agent: Provides detailed project insights
@@ -152,7 +158,7 @@ The project follows a modular architecture with several key components:
 1. User sends a question via the chat endpoint
 2. Request is validated using Pydantic models
 3. Agent Manager assigns the task to appropriate agent(s)
-4. Agents access knowledge base and memory as needed
+4. Agents access knowledge base , memory, or by  using  the appropriate tool as needed
 5. Response is generated and formatted
 6. Chat history is updated
 7. Response is returned to user
@@ -181,6 +187,3 @@ This API is designed to integrate seamlessly with my portfolio website at https:
 
 Feel free to open issues or submit pull requests if you find any bugs or have suggestions for improvements.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
