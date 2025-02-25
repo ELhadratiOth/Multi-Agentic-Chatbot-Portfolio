@@ -99,7 +99,7 @@ def get_github_file(repo:str) -> str:
     
 #langchain toolkit
 credentials = get_gmail_credentials(
-    token_file="/etc/secrets/token.json",
+    token_file="/tmp/token.json",
     scopes=["https://mail.google.com/"],
     client_secrets_file="/etc/secrets/credentials.json",
 )
