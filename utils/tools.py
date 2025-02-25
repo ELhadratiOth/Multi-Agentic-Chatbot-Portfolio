@@ -102,82 +102,58 @@ def get_github_file(repo:str) -> str:
     
 #langchain toolkit
 from google.oauth2.service_account import Credentials
-
-
 def get_service_account_credentials():
-    """
-    Load service account credentials for Gmail API access.
-    
-    Returns:
-        Credentials: Google OAuth2 credentials for service account
-    """
     try:
-        # Directly load the service account JSON file
         with open('/etc/secrets/token.json', 'r') as f:
             credentials_info = json.load(f)
-            
-        # Create credentials from the loaded JSON
         credentials = Credentials.from_service_account_info(
             credentials_info,
-            scopes=["https://mail.google.com/"]
+            scopes=["https://mail.google.com/"],
         )
+        # Impersonate if using domain-wide delegation
+        credentials = credentials.with_subject("othmanelhadrati@gmail.com")
+        # Validate and refresh token
+        if not credentials.valid:
+            credentials.refresh(google.auth.transport.requests.Request())
+            print("Credentials refreshed")
         return credentials
     except Exception as e:
         print(f"Error loading service account credentials: {str(e)}")
         raise
-# get_service_account_credentials()
-credentials = get_service_account_credentials()
 
-# credentials = get_gmail_credentials(
-#     token_file="./logs/token.json",
-#     scopes=["https://mail.google.com/"],
-#     client_secrets_file="./logs/credentials.json",
-# )
+# Build API resource (assuming this is your function)
+def build_resource_service(credentials):
+    return build('gmail', 'v1', credentials=credentials)
+
+credentials = get_service_account_credentials()
 api_resource = build_resource_service(credentials=credentials)
 gmail_toolkit = GmailToolkit(api_resource=api_resource)
 
-
+# Agent setup (unchanged)
 system_message = SystemMessagePromptTemplate.from_template(
-    "You are an assistant that sends emails exclusively to othmanelhadrati@gmail.com, "
-    "regardless of any other email address mentioned in the input. "
-    "Use the provided subject and body, but always set the recipient to othmanelhadrati@gmail.com"
+    "You are an assistant that sends emails exclusively to othmanelhadrati@gmail.com..."
 )
 agent_sender_lang = initialize_agent(
-    tools=[gmail_toolkit.get_tools()[1]],   # to  give the access only  for  sending  msg
+    tools=[gmail_toolkit.get_tools()[1]],  # Verify this is the send tool
     llm=llm_lang,
     agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
-    agent_kwargs={"system_message": system_message}, 
+    agent_kwargs={"system_message": system_message},
 )
-
 
 @tool
 def send_gmail(subject: str, body: str) -> str:
-    """
-    Sends an email via Gmail using the provided subject and body, always to othmanelhadrati@gmail.com.
-
-    Args:
-        subject (str): The subject line of the email.
-        body (str): The body content of the email.
-
-    Returns:
-        str: A message indicating whether the email was sent successfully or not.
-
-    Example:
-        >>> send_gmail("Hello", "Hi Othman, how are you?")
-        "Email sent successfully"
-    """
-    # Explicitly set the recipient in the input data for the Gmail tool
     input_data = {
         "input": f"Send an email to othmanelhadrati@gmail.com with subject '{subject}' and body '{body}'"
     }
-    # print("agent invoked")
-    result = agent_sender_lang.invoke(input_data)
-    
-    if "sent" in result.get("output", "").lower():
-        return (
-            "Thank you for your message! 🙏 Your email has been successfully sent to Othman. "
-            "He will review it and get back to you as soon as possible. "
-            "In the meantime, feel free to explore his portfolio at [/about](/about) to learn more about his work! ✨"
-        )
-    else:
-        return "Sorry, there was an issue sending your email. Please try again later or contact Othman through his social media channels."
+    try:
+        result = agent_sender_lang.invoke(input_data)
+        print(f"Agent result: {result}")  # Debug output
+        if "sent" in result.get("output", "").lower():
+            return (
+                "Thank you for your message! 🙏 Your email has been successfully sent to Othman..."
+            )
+        else:
+            return "Sorry, there was an issue sending your email..."
+    except Exception as e:
+        print(f"Error sending email: {str(e)}")
+        return "Sorry, there was an issue sending your email..."
