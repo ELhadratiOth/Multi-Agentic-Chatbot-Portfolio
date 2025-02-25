@@ -105,18 +105,27 @@ from google.oauth2.service_account import Credentials
 
 
 def get_service_account_credentials():
-    encoded_key = os.getenv("SERVICE_ACCOUNT_KEY")
-    # print(encoded_key)
-
-    # decoded_key = base64.b64decode(encoded_key).decode("utf-8")
-    # print(decoded_key)
-    credentials_info = json.loads(encoded_key)
-    credentials = Credentials.from_service_account_info(
-        credentials_info,
-        scopes=["https://mail.google.com/"]
-    )
-    return credentials
-get_service_account_credentials()
+    """
+    Load service account credentials for Gmail API access.
+    
+    Returns:
+        Credentials: Google OAuth2 credentials for service account
+    """
+    try:
+        # Directly load the service account JSON file
+        with open('/etc/secrets/token.json', 'r') as f:
+            credentials_info = json.load(f)
+            
+        # Create credentials from the loaded JSON
+        credentials = Credentials.from_service_account_info(
+            credentials_info,
+            scopes=["https://mail.google.com/"]
+        )
+        return credentials
+    except Exception as e:
+        print(f"Error loading service account credentials: {str(e)}")
+        raise
+# get_service_account_credentials()
 credentials = get_service_account_credentials()
 
 # credentials = get_gmail_credentials(
