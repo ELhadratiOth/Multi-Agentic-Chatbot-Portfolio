@@ -1,0 +1,11 @@
+crewai
+crewai-tools
+fastapi
+uvicorn
+python-dotenv
+pydantic
+mem0ai
+requests
+google-generativeai
+langchain-google-community[gmail]
+langchain_google_genai

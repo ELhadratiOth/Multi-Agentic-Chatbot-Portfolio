@@ -1,0 +1,187 @@
+{
+  "personal_info": {
+    "name": "Othman El Hadrati",
+    "location": "Kenitra - Morocco",
+    "role": "Data and software Engineering Student",
+    "education": {
+      "institution": "National School of Applied Sciences in Al Hoceima (ENSAH)",
+      "program / speciality": "Data Engineering",
+      "year": "Second-year engineering student"
+    },
+    "bio": "I am dedicated to harnessing technology to enhance people's lives. With a passion for both Data Engineering and Web Development, I focus on crafting polished, precise code. My main motivation as a programmer is to make a positive impact by helping people.",
+    "social_media links": {
+      "linkedin": " `https://www.linkedin.com/in/othman-el-hadrati-91aa98243/` ",
+      "github": " `https://www.github.com/ELhadratiOth` ",
+      "instagram": " `https://www.instagram.com/otnox_/  ",
+      "credly": " `https://www.credly.com/users/othman-elhadrati` "
+    } ,
+    "RESUME / CV":{
+      "link" :" `https://www.0thman.tech/assets/MyCV-BWqeGsYs.pdf` "
+    }
+  },
+  "skills": {
+    "programming_languages": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Java",
+      "Python",
+      "C"
+    ],
+    "ml_ai": [
+      "Scikit-learn",
+      "Tensorflow",
+      "OpenAI Gym",
+      "Hugging Face",
+      "LangChain"
+    ],
+    "big_data": ["Kafka", "Sqoop", "Hive"],
+    "frameworks_libraries": [
+      "React",
+      "Framer-Motion",
+      "FastAPI",
+      "Tailwind CSS",
+      "Flask",
+      "Shadcn UI",
+      "Bootstrap"
+    ],
+    "databases": ["Oracle", "MySQL", "PostgreSQL", "MongoDB"],
+    "cloud_platforms": ["AWS"],
+    "operating_systems": ["Linux", "Windows"],
+    "tools": ["Git", "GitHub", "Postman", "Docker", "Power Automate"]
+  },
+  "services": [
+    {
+      "name": "Data Engineering",
+      "description": "Building scalable and secure data pipelines using ETL/ELT and AWS."
+    },
+    {
+      "name": "Machine Learning",
+      "description": "Developing and deploying AI models for intelligent automation."
+    },
+    {
+      "name": "Web Development",
+      "description": "Creating engaging and functional digital experiences."
+    },
+    {
+      "name": "Cloud Solutions",
+      "description": "Designing secure and cost-effective cloud architectures with AWS."
+    },
+    {
+      "name": "Hosting",
+      "description": "Providing reliable and scalable hosting for websites and applications."
+    },
+    {
+      "name": "Problem Solving",
+      "description": "Analyzing and implementing efficient solutions for complex challenges."
+    },
+    {
+      "name": "Database Management",
+      "description": "Ensuring secure, optimized, and scalable database solutions."
+    }
+  ],
+  "certifications": {
+    "important_and_relevant_certifications": [
+      {
+        "name": "OCI 2024 Generative AI Certified Professional",
+        "provider": "Oracle",
+        "date": "2025",
+        "link": " `https://www.0thman.tech/assets/GenAi-BTsWJ6oO.pdf` "
+      },
+      {
+        "name": "Hugging Face Agents Course",
+        "provider": "Hugging Face",
+        "date": "2025",
+        "link": " `https://www.0thman.tech/assets/HuggingFace-FM6sgAjF.pdf` "
+      },
+      {
+        "name": "OCI 2024 Certified AI Foundations Associate",
+        "provider": "Oracle",
+        "date": "2025",
+        "link": " `https://www.0thman.tech/assets/Ai-Cwcp6XJk.pdf` "
+      },
+      {
+        "name": "Machine Learning Specialization",
+        "provider": "Stanford University - Coursera",
+        "date": "2024",
+        "link": " `https://www.coursera.org/account/accomplishments/specialization/KIZAQJBAYH54` "
+      }
+    ],
+    "simple_certifications": [
+      {
+        "name": "Python for Beginners",
+        "provider": "Simplilearn",
+        "date": "2024",
+        "link": " `https://simpli-web.app.link/e/6AcNpCdPhLb` "
+      },
+      {
+        "name": "Java Programming: Solving Problems",
+        "provider": "Duke University - Coursera",
+        "date": "2024",
+        "link": " `https://www.coursera.org/account/accomplishments/verify/THZP9WU2S58X` "
+      },
+      {
+        "name": "Getting Started with Git and GitHub",
+        "provider": "IBM - Coursera",
+        "date": "2024",
+        "link": " `https://www.coursera.org/account/accomplishments/verify/C9GZALZCQ7XT` "
+      },
+      {
+        "name": "Introduction to Linux Commands and Shell Scripting",
+        "provider": "IBM - Coursera",
+        "date": "2024",
+        "link": " `https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA` "
+      },
+      {
+        "name": "Python Certificate",
+        "provider": "CodSoft",
+        "date": "2024",
+        "link": " `https://www.0thman.tech/assets/CodSoft--CtCbaYN.pdf` "
+      },
+      {
+        "name": "Database Structures and Management with MySQL",
+        "provider": "Meta - Coursera",
+        "date": "2024",
+        "link": " `https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS` "
+      },
+      {
+        "name": "Introduction to Databases",
+        "provider": "Meta - Coursera",
+        "date": "2023",
+        "link": " `https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3` "
+      }
+    ]
+  },
+  "portfolio_routes": {
+    "home": {
+      "path": "/",
+      "description": "Main landing page with introduction and overview or to download the Resume in pdf format"
+    },
+    "about": {
+      "path": "/about",
+      "description": "Detailed information about me and my background, skills, and certificats"
+    },
+    "projects": {
+      "path": "/projects",
+      "description": "Showcase of my projects and repositories"
+    },
+    "contact": {
+      "path": "/contactme",
+      "description": "Contact form and professional contact information"
+    },
+    "services": {
+      "path": "/services",
+      "description": "Detailed overview of technical services that i can offer"
+    }
+  },
+  "contact_methods": {
+    "email": {
+      "primary": " `othmanelhadrati@gmail.com` ",
+      "response": "You can reach me directly via email at othmanelhadrati@gmail.com"
+    },
+    "contact_form": {
+      "location": "/contactme",
+      "response": "You can use the contact form on my portfolio at /contactme to send me a message"
+    }
+  }
+}
