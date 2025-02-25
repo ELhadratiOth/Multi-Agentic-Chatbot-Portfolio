@@ -106,14 +106,17 @@ from google.oauth2.service_account import Credentials
 
 def get_service_account_credentials():
     encoded_key = os.getenv("SERVICE_ACCOUNT_KEY")
-    decoded_key = base64.b64decode(encoded_key).decode("utf-8")
+    # print(encoded_key)
+
+    # decoded_key = base64.b64decode(encoded_key).decode("utf-8")
+    # print(decoded_key)
     credentials_info = json.loads(decoded_key)
     credentials = Credentials.from_service_account_info(
         credentials_info,
         scopes=["https://mail.google.com/"]
     )
     return credentials
-
+get_service_account_credentials()
 credentials = get_service_account_credentials()
 
 # credentials = get_gmail_credentials(
