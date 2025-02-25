@@ -110,7 +110,7 @@ def get_service_account_credentials():
 
     # decoded_key = base64.b64decode(encoded_key).decode("utf-8")
     # print(decoded_key)
-    credentials_info = json.loads(decoded_key)
+    credentials_info = json.loads(encoded_key)
     credentials = Credentials.from_service_account_info(
         credentials_info,
         scopes=["https://mail.google.com/"]
