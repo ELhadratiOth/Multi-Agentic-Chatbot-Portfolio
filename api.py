@@ -19,7 +19,6 @@ os.environ['GRPC_ENABLE_FORK_SUPPORT'] = '0'
 os.environ['GRPC_POLL_STRATEGY'] = 'epoll1'
 
 agentops.init(api_key=os.getenv("AGENTOPS_API_KEY"), default_tags=["Portfolio-Chatbot"] ,)
-agentops.start_session()
 
 client = MemoryClient()
 
