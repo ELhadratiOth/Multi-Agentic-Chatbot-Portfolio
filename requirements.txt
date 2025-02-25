@@ -9,3 +9,4 @@ requests
 google-generativeai
 langchain-google-community[gmail]
 langchain_google_genai
+agentops
