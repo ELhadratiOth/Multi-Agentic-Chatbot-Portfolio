@@ -19,6 +19,8 @@ os.environ['GRPC_ENABLE_FORK_SUPPORT'] = '0'
 os.environ['GRPC_POLL_STRATEGY'] = 'epoll1'
 
 agentops.init(api_key=os.getenv("AGENTOPS_API_KEY"), default_tags=["Portfolio-Chatbot"] ,)
+agentops.start_session()
+
 client = MemoryClient()
 
 app = FastAPI(
@@ -67,7 +69,6 @@ async def health_check():
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: Request, chat_request: ChatRequest, response: Response):
     try:
-        agentops.start_session()
         if is_greeting(chat_request.question):
             return ChatResponse(response="Hi there! I'm your portfolio assistant. How can I help you today?")
         
