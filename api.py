@@ -88,8 +88,8 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
                 value=user_id,
                 httponly=False,  # Allow JavaScript access
                 max_age=259200,  # 3 days
-                samesite="lax",  # Allow cross-site requests
-                secure=False,  # Allow non-HTTPS
+                samesite="none",  # Allow cross-site requests
+                secure=True,  # Allow non-HTTPS
                 domain=None,  # Allow any domain
                 path="/"  # Available across all paths
             )
