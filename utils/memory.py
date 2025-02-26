@@ -11,7 +11,7 @@ def get_first_10_memories(memories):
     memory_list = memories['results']
     
     # Take the first 10 elements (or all if less than 10)
-    first_10_memories = memory_list[:10]
+    first_10_memories = memory_list[:4]
     
     try:
         first_10_messages = [memory['memory'] for memory in first_10_memories]

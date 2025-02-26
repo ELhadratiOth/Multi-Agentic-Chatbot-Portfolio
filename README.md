@@ -144,6 +144,7 @@ PortfolioChatbot/
   - **GitHub API** → Retrieves repository data.
   - **Mem0** → Handles chatbot memory.
   - **Gemini API** → AI response generation.
+  - **AgentOps API** → Monitoring the System.
 
 ##  Security
 

@@ -30,7 +30,7 @@ app = FastAPI(
 
 # Configure CORS
 allowed_origins = [
-    "https://www.0thman.tech",  ]
+    "https://www.0thman.tech" ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -101,10 +101,9 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         print(all_memories)
         memory = get_first_10_memories(all_memories)
         print(f"Memory for user {user_id}: {memory}")
-
         crew_response = crew.kickoff(inputs={
             "question": chat_request.question,
-            "chat history": memory
+            "chat history": memory,
         })
         # print("user question :" + chat_request.question)
         # print("response from crew : " + crew_response["response"])
