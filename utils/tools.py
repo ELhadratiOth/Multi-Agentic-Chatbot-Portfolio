@@ -120,33 +120,33 @@ def send_gmail(subject: str, body: str) -> str:
     Returns:
         str: A message indicating the success or failure of sending the email
     """
-    # try:
-    sender_email = "othmanelhadrati@gmail.com"
-    receiver_email = "othmanelhadrati@gmail.com"  
-    # print("suuuuuuuuuuuuuuuub : " +subject)
-    message = MIMEText(body)
-    message["From"] = sender_email
-    message["To"] = receiver_email
-    message["Subject"] = subject
+    try:
+        sender_email = "othmanelhadrati@gmail.com"
+        receiver_email = "othmanelhadrati@gmail.com"  
+        # print("suuuuuuuuuuuuuuuub : " +subject)
+        message = MIMEText(body)
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        message["Subject"] = subject
 
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
 
-    with smtplib.SMTP(smtp_server, smtp_port) as server:
-        server.starttls()
-        server.login(sender_email, app_password)
-        server.sendmail(sender_email, receiver_email, message.as_string())
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, app_password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            
+        return (
+            "email sent"
+        )
         
-    return (
-        "email sent"
-    )
+    except ValueError :
+        return "email not sent 1"
         
-    # except ValueError :
-    #     return "email not sent 1"
+    except smtplib.SMTPAuthenticationError:
+        return "email not sent 2"
         
-    # except smtplib.SMTPAuthenticationError:
-    #     return "email not sent 2"
-        
-    # except Exception :
-    #     return "email not sent 3"
+    except Exception :
+        return "email not sent 3"
 # send_gmail("salam","salam") 
