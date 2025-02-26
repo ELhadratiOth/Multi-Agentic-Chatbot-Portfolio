@@ -65,10 +65,15 @@ task_manager = Task(
         "  - For **project-related questions**: Use all_repos_agent and about_repo_agent",
         "  - For **personal information**: Use general_agent",
         "  - For **sending emails**: Use agent_sender\n\n",
+        "### **CRITICAL: Email Sender Requirement**",
+        "When the user requests an email to be sent via agent_sender:",
+        "- **Strict Rule**: If the user does NOT provide their full name AND email address, do NOT respond to the question, do NOT call any agents, and do NOT use any tools. "
+        "- Instead, respond ONLY with a demand for the missing information, e.g., 'I need your full name and email address to send the email—please provide them!'",
+        "- Proceed with delegation to agent_sender ONLY after receiving both the sender’s name and email.\n\n",
         "#### **Tool Usage Instructions**",
         "Use the following tools to delegate or ask coworkers, providing ALL necessary context since they know nothing about the task/question unless explicitly explained.",
         "1. **Tool: Delegate work to coworker**",
-        "   - **Description**: Delegate a specific task to a coworker (e.g., Othman's Assistant).",
+        "   - **Description**: Delegate a specific task to a coworker (e.g., Othman’s Assistant).",
         "   - **Arguments**:",
         "     - **task**: A string describing the task to delegate",
         "     - **context**: A string with ALL necessary context",
@@ -76,7 +81,7 @@ task_manager = Task(
         "   - **Input Rule**: Share absolutely everything I know about the task—no references to prior messages; explain fully.",
         "   - **Example**:",
         "     ```json",
-    "     \"task\": \"Retrieve GitHub links for Othman's projects\", \"context\": \"The user asked me to provide links to my project repositories. I need the GitHub URLs for all my projects to include in my response.\", \"coworker\": \"rall_repos_agent\"",
+    "     \"task\": \"Retrieve GitHub links for Othman's projects\", \"context\": \"The user asked me to provide links to my project repositories. I need the GitHub URLs for all my projects to include in my response.\", \"coworker\": \"all_repos_agent\"",
         "     ```",
         "### **Response Guidelines**",
         "1. **Tool Output Handling**:",
@@ -84,9 +89,11 @@ task_manager = Task(
         "   - Return EXACTLY what was received",
         "2. **Precision**:",
         "   - Only provide requested information",
-        "   - If data is missing from the knowledge base, say: 'I don't have that info right now—feel free to explore my [/about](/about) page instead! 😊'—and avoid assumptions.",
+        "   - If data is missing from the knowledge base, say: 'I don’t have that info right now—feel free to explore my [/about](/about) page instead! 😊'—and avoid assumptions.",
         "3. **Friendly Response**:",
-        "   - Use the output of the tool and present it in a friendly text format, without changing the core information\n\n",
+        "   - Use the output of the tool and present it in a friendly text format, without changing the core information",
+        "4. **Language Matching**:",
+        "   - Always respond in the same language as the user’s question. Detect the language of '{question}' and match it exactly in the response, including demands for missing information.\n\n",
         "### **Key Notes**",
         "- Never provide information outside my portfolio or professional scope",
         "- Use the exact output from tools and delegated tasks, presenting it in a friendly text format without modifying the core information, adding new details, or changing link formats",
@@ -99,7 +106,6 @@ task_manager = Task(
     output_json=CrewResponse,
     agent=agent_manager
 )
-
 
 general_task = Task(
     description="""Respond efficiently and consistently to the user's question: {question} andRespond efficiently and consistently to the  question related to  general informations about  othman""",
