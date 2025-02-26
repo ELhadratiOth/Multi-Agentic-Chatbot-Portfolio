@@ -51,6 +51,7 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive a
    GITHUB_TOKEN=your_github_token
    GOOGLE_API_KEY_2=your_gemini_api_key
    AGENTOPS_API_KEY=your_agentips_api_key
+   GMAIL_SERVICE_ACCOUNT=your_base64_encoded_service_account_json
    ```
 
 2. **Installation**
@@ -62,6 +63,124 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive a
    ```bash
    uvicorn api:app --host 0.0.0.0 --port 8000
    ```
+
+## Deployment
+
+### Server Requirements
+- Python 3.x
+- 2GB RAM minimum
+- Sufficient disk space for dependencies
+- HTTPS capability for secure communication
+
+### Deployment Steps
+
+1. **Prepare Environment Variables**
+   - Convert your Gmail service account JSON to base64 and set it as `GMAIL_SERVICE_ACCOUNT`
+   - Set all other required environment variables
+   - Ensure all API keys are properly configured
+
+2. **Server Setup**
+   ```bash
+   # Clone the repository
+   git clone https://github.com/yourusername/PortFolioChatbot.git
+   cd PortFolioChatbot
+
+   # Create and activate virtual environment
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+   # Install dependencies
+   pip install -r requirements.txt
+
+   # Start the server
+   uvicorn api:app --host 0.0.0.0 --port 8000 --workers 4
+   ```
+
+3. **Security Considerations**
+   - Configure CORS settings in `api.py` for your domain
+   - Use HTTPS for all communications
+   - Keep API keys and credentials secure
+   - Regularly update dependencies
+
+4. **Monitoring**
+   - Set up logging for tracking API usage
+   - Monitor memory usage and performance
+   - Configure error notifications
+
+5. **Maintenance**
+   - Regularly backup configuration
+   - Update API keys before expiration
+   - Monitor service account permissions
+
+### Docker Deployment (Alternative)
+
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+```
+
+```bash
+# Build and run with Docker
+docker build -t portfolio-chatbot .
+docker run -p 8000:8000 --env-file .env portfolio-chatbot
+```
+
+### Deployment on Render
+
+#### Prerequisites
+- A Render account
+- Your repository pushed to GitHub
+- All required API keys and credentials
+
+#### Deployment Steps
+
+1. **Prepare Your Environment Variables**
+   - Convert your Gmail service account JSON to base64:
+     ```bash
+     base64 -w 0 logs/token.json > service_account_base64.txt
+     ```
+   - Copy the output to use as `GMAIL_SERVICE_ACCOUNT` in Render
+
+2. **Deploy on Render**
+   - Log in to your Render dashboard
+   - Click "New +" and select "Web Service"
+   - Connect your GitHub repository
+   - Fill in the following settings:
+     - **Name**: `portfolio-chatbot` (or your preferred name)
+     - **Environment**: `Python`
+     - **Build Command**: `pip install -r requirements.txt`
+     - **Start Command**: `uvicorn api:app --host 0.0.0.0 --port $PORT`
+
+3. **Configure Environment Variables**
+   In your Render dashboard, add the following environment variables:
+   ```
+   GOOGLE_API_KEY=your_google_api_key
+   MEM0_API_KEY=your_mem0_api_key
+   GEMINI_API_KEY=your_gemini_api_key
+   GITHUB_TOKEN=your_github_token
+   GOOGLE_API_KEY_2=your_gemini_api_key
+   AGENTOPS_API_KEY=your_agentips_api_key
+   GMAIL_SERVICE_ACCOUNT=your_base64_encoded_service_account_json
+   ```
+
+4. **Deploy**
+   - Click "Create Web Service"
+   - Render will automatically build and deploy your application
+   - Your API will be available at `https://your-app-name.onrender.com`
+
+#### Important Notes
+- Render's free tier has some limitations on memory and CPU
+- The service may take a few minutes to start up initially
+- Configure your frontend to use the new Render URL
+- Update CORS settings in `api.py` to allow your domain
 
 ## API Endpoints
 
@@ -186,4 +305,3 @@ This API is designed to integrate seamlessly with my portfolio website at https:
 ## Contributing
 
 Feel free to open issues or submit pull requests if you find any bugs or have suggestions for improvements.
-

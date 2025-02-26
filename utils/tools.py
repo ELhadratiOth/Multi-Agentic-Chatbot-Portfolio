@@ -4,17 +4,20 @@ from dotenv import load_dotenv
 import os
 import base64
 from datetime import datetime
-from langchain_community.agent_toolkits.gmail.toolkit import GmailToolkit
-from langchain_google_community.gmail.utils import build_resource_service, get_gmail_credentials
+# from langchain_community.agent_toolkits.gmail.toolkit import GmailToolkit
+# from langchain_google_community.gmail.utils import build_resource_service, get_gmail_credentials
 import base64
-import json
-from google.oauth2.service_account import Credentials
-from langchain.agents import initialize_agent, AgentType
-from langchain.prompts import  SystemMessagePromptTemplate
-from utils.model import  llm_lang
+# import json
+# from google.oauth2.service_account import Credentials
+# from langchain.agents import initialize_agent, AgentType
+# from langchain.prompts import  SystemMessagePromptTemplate
+# from utils.model import  llm_lang
+import smtplib
+from email.mime.text import MIMEText
 
 load_dotenv(override=True)
 github_token = os.getenv("GITHUB_TOKEN")
+app_password = os.getenv("GMAIL_APP_PASSWORD")
 
 headers = {
     "Accept": "application/vnd.github+json",
@@ -101,59 +104,49 @@ def get_github_file(repo:str) -> str:
     
     
 #langchain toolkit
-from google.oauth2.service_account import Credentials
-def get_service_account_credentials():
-    try:
-        with open('/etc/secrets/token.json', 'r') as f:
-            credentials_info = json.load(f)
-        credentials = Credentials.from_service_account_info(
-            credentials_info,
-            scopes=["https://mail.google.com/"],
-        )
-        # Impersonate if using domain-wide delegation
-        credentials = credentials.with_subject("othmanelhadrati@gmail.com")
-        # Validate and refresh token
-        if not credentials.valid:
-            credentials.refresh(google.auth.transport.requests.Request())
-            print("Credentials refreshed")
-        return credentials
-    except Exception as e:
-        print(f"Error loading service account credentials: {str(e)}")
-        raise
 
-# Build API resource (assuming this is your function)
-def build_resource_service(credentials):
-    return build('gmail', 'v1', credentials=credentials)
 
-credentials = get_service_account_credentials()
-api_resource = build_resource_service(credentials=credentials)
-gmail_toolkit = GmailToolkit(api_resource=api_resource)
 
-# Agent setup (unchanged)
-system_message = SystemMessagePromptTemplate.from_template(
-    "You are an assistant that sends emails exclusively to othmanelhadrati@gmail.com..."
-)
-agent_sender_lang = initialize_agent(
-    tools=[gmail_toolkit.get_tools()[1]],  # Verify this is the send tool
-    llm=llm_lang,
-    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
-    agent_kwargs={"system_message": system_message},
-)
 
 @tool
 def send_gmail(subject: str, body: str) -> str:
-    input_data = {
-        "input": f"Send an email to othmanelhadrati@gmail.com with subject '{subject}' and body '{body}'"
-    }
-    try:
-        result = agent_sender_lang.invoke(input_data)
-        print(f"Agent result: {result}")  # Debug output
-        if "sent" in result.get("output", "").lower():
-            return (
-                "Thank you for your message! 🙏 Your email has been successfully sent to Othman..."
-            )
-        else:
-            return "Sorry, there was an issue sending your email..."
-    except Exception as e:
-        print(f"Error sending email: {str(e)}")
-        return "Sorry, there was an issue sending your email..."
+    """
+    Send an email using Gmail SMTP.
+    
+    Args:
+        subject (str): The subject of the email
+        body (str): The body content of the email
+        
+    Returns:
+        str: A message indicating the success or failure of sending the email
+    """
+    # try:
+    sender_email = "othmanelhadrati@gmail.com"
+    receiver_email = "othmanelhadrati@gmail.com"  
+    # print("suuuuuuuuuuuuuuuub : " +subject)
+    message = MIMEText(body)
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        server.login(sender_email, app_password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        
+    return (
+        "email sent"
+    )
+        
+    # except ValueError :
+    #     return "email not sent 1"
+        
+    # except smtplib.SMTPAuthenticationError:
+    #     return "email not sent 2"
+        
+    # except Exception :
+    #     return "email not sent 3"
+# send_gmail("salam","salam") 

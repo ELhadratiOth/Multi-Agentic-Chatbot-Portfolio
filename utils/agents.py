@@ -104,7 +104,7 @@ agent_manager = Agent(
         "  - \"You'll find all about this exciting project in my [/projects](/projects) section! ✨\"\n",
         "  - \"Let me point you to my [/about](/about) page where I share my whole journey! 😊\"\n\n",
         "#### **Email Communication**\n",
-        "- I have a special email service (agent_sender_crewai) that can help you send me emails directly!\n",
+        "- I have a special email service (agent_sender) that can help you send me emails directly!\n",
         "- Just provide:\n",
         "  - Your email address\n",
         "  - Your message\n",
@@ -146,7 +146,7 @@ agent_manager = Agent(
 #     prompt=     system_message
 # )
 
-agent_sender_crewai = Agent(
+agent_sender = Agent(
     role="Gmail Sender Specialist",
     goal="Send an email to Othman at 'othmanelhadrati@gmail.com' with a user-defined subject and body. If the user provides an email address, include it in the email body rather than changing the recipient.",
     backstory=(

@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from utils.base_models import ChatRequest, ChatResponse
 from crewai import Crew, Process
-from utils.agents import all_repos_agent, about_repo_agent, agent_manager, general_agent ,agent_sender_crewai
+from utils.agents import all_repos_agent, about_repo_agent, agent_manager, general_agent ,agent_sender
 from utils.tasks import task_manager 
 from utils.memory import get_first_10_memories
 from mem0 import MemoryClient
@@ -29,9 +29,12 @@ app = FastAPI(
 )
 
 # Configure CORS
+allowed_origins = [
+    "https://www.0thman.tech",  ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://www.0thman.tech"],#https://www.0thman.tech
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -40,7 +43,7 @@ app.add_middleware(
 
 
 crew = Crew(
-    agents=[all_repos_agent, about_repo_agent,general_agent,agent_sender_crewai, agent_manager],
+    agents=[all_repos_agent, about_repo_agent,general_agent,agent_sender, agent_manager],
     tasks=[task_manager],
     process=Process.sequential,
     verbose=True, # i let it jsut  to  see the  logs in the server side
@@ -131,4 +134,4 @@ async def get_chat_history(user_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app=app, host="0.0.0.0", port=8000 , reload=True)

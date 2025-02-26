@@ -8,8 +8,8 @@ llm=LLM(
         verbose=True,    
         )
 
-llm_lang = GoogleGenerativeAI(
-    model="gemini-2.0-flash",
-    temperature=0,
-    google_api_key=os.getenv("GOOGLE_API_KEY_2"),
-)
+# llm_lang = GoogleGenerativeAI(
+#     model="gemini-2.0-flash",
+#     temperature=0,
+#     google_api_key=os.getenv("GOOGLE_API_KEY_2"),
+# )
