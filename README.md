@@ -134,7 +134,7 @@ PortfolioChatbot/
 
 ### **6️ Tools & Utilities (`utils/tools.py`)**
 - GitHub API integration.
-- Gmail API integration.
+- Gmail integration.
 - Functions for retrieving repositories and content.
 
 ## 🔗 Integration Points
