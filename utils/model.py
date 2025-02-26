@@ -1,6 +1,6 @@
 from crewai import LLM
-from langchain_google_genai import GoogleGenerativeAI
-import os
+# from langchain_google_genai import GoogleGenerativeAI
+# import os
 
 llm=LLM(
         model="gemini/gemini-2.0-flash",
