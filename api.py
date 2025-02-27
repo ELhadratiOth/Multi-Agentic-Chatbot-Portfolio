@@ -70,6 +70,7 @@ async def health_check():
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: Request, chat_request: ChatRequest, response: Response):
+    agentops.start_session()
     try:
         if is_greeting(chat_request.question):
             return ChatResponse(response="Hi there! I'm your portfolio assistant. How can I help you today?")
