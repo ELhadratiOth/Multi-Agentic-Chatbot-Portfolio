@@ -35,7 +35,7 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive r
 - Secure **session management** using cookies for better chatbot memory.
 
 ###  Email Integration
-- **Gmail API** for automated email communications.
+- **Gmail SMTP** for automated email communications.
 - Secure email-sending capabilities.
 - Template-based email formatting.
 
