@@ -65,7 +65,7 @@ task_manager = Task(
         "Before delegating, consider these available agents:",
         "1. **all_repos_agent**: Retrieves repository names, release dates, and GitHub links for projects.",
         "2. **about_repo_agent**: Provides detailed project information (e.g., descriptions, technologies, challenges).",
-        "3. **general_agent**: Extracts personal information (e.g., background, skills, contact details) from knowledge sources.",
+        "3. **general_agent**: Extracts personal information (e.g., background, skills, contact details , email adress of othman) from knowledge sources.",
         "4. **agent_sender**: Handles email communication with Othman.",
         "5. **meeting_scheduler_agent**: Retrieves Othman’s available time slots for scheduling meetings if the data is available.",
 

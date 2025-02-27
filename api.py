@@ -82,18 +82,18 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         # print(user_id)
         
         if not user_id:
-            user_id = str(uuid.uuid4())
-            response.set_cookie(
-                key="user_id",
-                value=user_id,
-                httponly=False,  # Allow JavaScript access
-                max_age=259200,  # 3 days
-                samesite="none",  # Allow cross-site requests
-                secure=True,  # Allow non-HTTPS
-                domain=None,  # Allow any domain
-                path="/"  # Available across all paths
-            )
-            print(f"New user assigned ID: {user_id}")
+                    user_id = str(uuid.uuid4())
+                    response.set_cookie(
+                        key="user_id",
+                        value=user_id,
+                        httponly=True,  # Change to True for security
+                        max_age=259200,  # 3 days
+                        path="/",
+                        domain=".0thman.tech",  # Use your domain (remove leading www)
+                        secure=True,     # Require HTTPS
+                        samesite="lax"   # Change from "none" to "lax"
+                    )
+                    print(f"New user assigned ID: {user_id}")
         else:
             print(f"Existing user ID from cookie: {user_id}")
 
