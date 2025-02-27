@@ -10,6 +10,11 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive r
 
 ![UI Image](./imgs/UI.png)
 
+##  Architecture 
+
+![Archi Image](./imgs/archi.png)
+
+
 ## Key Features
 
 ###  Multi-Agent Architecture
