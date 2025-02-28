@@ -89,7 +89,6 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
                         httponly=True, 
                         max_age=259200,  # 3 days
                         path="/",
-                        domain=".0thman.tech",  
                         samesite="none",
                         secure=True                    )
                     print(f"New user assigned ID: {user_id}")
