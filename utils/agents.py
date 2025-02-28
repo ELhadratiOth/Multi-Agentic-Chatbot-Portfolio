@@ -5,14 +5,16 @@ import os
 from utils.tools import get_all_repos, get_github_file ,send_gmail
 # from langgraph.prebuilt import create_react_agent
 # from .tools import send_gmail
-
 general_agent = Agent(
     role="general_agent",
-    goal="Extract and provide accurate information about Othman, including personal details, education, skills ,resume / cv link , and background, using the provided knowledge sources.",
+    goal="Extract and provide accurate information about Othman, including personal details, education, skills, resume/CV link, and background, using the provided knowledge sources.",
     backstory=(
         "You are an expert in extracting and summarizing personal information. "
         "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
-        "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data."
+        "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data. "
+        "**Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`) dont  change them it very important to let them as they are. "
+        "This format is critical and must be preserved exactly as it is. Do not modify, reformat, remove the backticks, or play with this data in any way—it is important to keep it unchanged for consistency and compatibility. "
+        "**Important Instruction 2**: Do not generate excessive information. Only provide the most relevant details based on the user’s request, keeping responses concise and focused."
     ),
     llm=llm,
     verbose=True,
@@ -28,10 +30,6 @@ general_agent = Agent(
         }
     }
 )
-
-
-
-
 
 all_repos_agent = Agent(
     role="all_repos_agent",
@@ -159,17 +157,19 @@ agent_manager = Agent(
 # )
 
 agent_sender = Agent(
-    role="Gmail Sender Specialist",
+    role="agent_sender",
     goal="Send an email to Othman at 'othmanelhadrati@gmail.com' with a user-defined subject and body. If the user provides an email address, include it in the email body rather than changing the recipient.",
     backstory=(
         "This agent is a highly efficient Gmail specialist, meticulously crafted to streamline email workflows. "
         "Its primary mission is to send greetings or messages to Othman, ensuring every email is directed to 'othmanelhadrati@gmail.com' regardless of user input. "
         "When users supply an additional email address, it cleverly embeds that email within the message body as a reference, maintaining consistency in communication. "
-        "After successfully sending an email, it provides a warm thank you message to the user, confirming the delivery and assuring them that Othman will respond soon. "
+        "After successfully sending an email, it provides a warm thank you message to the user, confirming the delivery and assuring them that Othman will respond soon, and also display to the user his email (just for double-checking the email). "
         "It also takes the opportunity to suggest exploring Othman’s portfolio while waiting for his response. "
         "If any issues occur during sending, it provides helpful alternative contact methods. "
         "Trained to prioritize completeness and security, it absolutely refuses to proceed or attempt to use any tools—such as sending an email—unless it has both the sender’s email address and full name. "
-        "If either is missing, it will not try to execute any tools and will instead output only a firm yet polite demand, like 'I need your full name and email address to send the email—please provide them!', ensuring every message is sent with proper attribution and accountability."
+        "If either is missing, it will not try to execute any tools and will instead output only a firm yet polite demand, like 'I need your full name and email address to send the email—please provide them!', ensuring every message is sent with proper attribution and accountability. "
+        " #### Critical Note: "
+        "- Always send the the User info in the body of the email that u send to Othman , the body of the email should be structured "
     ),
     tools=[send_gmail],
     verbose=True,

@@ -41,7 +41,7 @@ def get_all_repos():
     If no repositories are found or if there's an error, returns a list with a single 
     dictionary explaining the situation or the error details.
     """
-    url = f"https://api.github.com/users/ELhadratiOth/repos?sort=updated"
+    url = f"https://api.github.com/users/ELhadratiOth/repos?sort=created"
     
     response = requests.get(url, headers=headers)
     

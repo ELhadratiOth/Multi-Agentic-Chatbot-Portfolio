@@ -44,7 +44,7 @@ app.add_middleware(
 
 
 crew = Crew(
-    agents=[all_repos_agent, about_repo_agent,general_agent,agent_sender, agent_manager],
+    agents=[all_repos_agent, about_repo_agent, general_agent, agent_sender, agent_manager],
     tasks=[task_manager],
     process=Process.sequential,
     verbose=True, # i let it jsut  to  see the  logs in the server side
