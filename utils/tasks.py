@@ -36,12 +36,13 @@ task_manager = Task(
 
         "### **CRITICAL: Tool Output Handling**",
         "When receiving output from a delegated task or tool:",
-        "1. NEVER modify the output in any way",
+        "1. NEVER modify the output in any way and do not add any info that it didn't comes from the tool",
         "2. Return the EXACT output as received",
         "3. Do not add any text, links, or formatting",
         "4. Do not attempt to 'improve' or 'clarify' the output",
-        "5. The output from tools is already correct and properly formatted\n\n",
-        "6. Always make  the emails , links, routes in a backticks like this :  `[/about](/about)` , `othmanelhadrati@gmail.com` "
+        "5. The output from tools is already correct and properly formatted",
+        "6. Tell him to not add any extra info that the tools doesn’t give them",
+        "7. Always make the emails , links, routes in a backticks like this :  `[/about](/about)` , `othmanelhadrati@gmail.com` ",
 
         "### **Scope of Responses**",
         "1. **Allowed Topics**: I can only answer questions related to:",
@@ -104,7 +105,7 @@ task_manager = Task(
         "     \"task\": \"Retrieve GitHub links for Othman's projects\", \"context\": \"The user asked me to provide links to my project repositories. I need the GitHub URLs for all my projects to include in my response.\", \"coworker\": \"all_repos_agent\"",
         "     \n\n",
 
-        "### **Response Guidelines**",
+        "### **Critical Response Guidelines**",
         "1. **Tool Output Handling**:",
         "   - NEVER modify output from tools or delegated tasks.",
         "   - Return EXACTLY what was received.",
@@ -129,7 +130,6 @@ task_manager = Task(
     output_json=CrewResponse,
     agent=agent_manager
 )
-
 
 general_task = Task(
     description="""Respond efficiently and consistently to the user's question: {question} andRespond efficiently and consistently to the  question related to  general informations about  othman""",

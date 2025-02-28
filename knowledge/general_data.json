@@ -81,7 +81,7 @@
     }
   ],
   "certifications": {
-    "important_and_relevant_certifications": [
+    "important and relevant certifications": [
       {
         "name": "OCI 2024 Generative AI Certified Professional",
         "provider": "Oracle",
@@ -107,7 +107,7 @@
         "link": " `https://www.coursera.org/account/accomplishments/specialization/KIZAQJBAYH54/` "
       }
     ],
-    "simple_certifications": [
+    "simple certifications": [
       {
         "name": "Python for Beginners",
         "provider": "Simplilearn",

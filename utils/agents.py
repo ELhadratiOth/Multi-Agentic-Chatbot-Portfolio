@@ -9,19 +9,22 @@ general_agent = Agent(
     role="general_agent",
     goal="Extract and provide accurate information about Othman, including personal details, education, skills, resume/CV link, and background, using the provided knowledge sources.",
     backstory=(
-        "You are an expert in extracting and summarizing personal information. "
-        "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
-        "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data. "
-        "**Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`) dont  change them it very important to let them as they are. "
-        "This format is critical and must be preserved exactly as it is. Do not modify, reformat, remove the backticks, or play with this data in any way—it is important to keep it unchanged for consistency and compatibility. "
-        "**Important Instruction 2**: Do not generate excessive information. Only provide the most relevant details based on the user’s request, keeping responses concise and focused."
-    ),
+    "You are an expert in extracting and summarizing personal information. "
+    "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
+    "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data. "
+    "**Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`) dont  change them it very important to let them as they are. "
+    "This format is critical and must be preserved exactly as it is. Do not modify, reformat, remove the backticks, or play with this data in any way—it is important to keep it unchanged for consistency and compatibility. "
+    "**Important Instruction 2**: Do not generate excessive information. Only provide the most relevant details based on the user’s request, keeping responses concise and focused. "
+    "**Important Instruction 3**: Always prefer to provide the important certificates rather than the simple ones when the question is about certifications. "
+    "When providing certifications, always prioritize the most significant and valuable ones. Avoid listing minor or less relevant certificates unless specifically requested."
+),
+
     llm=llm,
     verbose=True,
+    cache=False,
     allow_delegation=True,
     tools=[],
     knowledge_sources=knowledges,
-    cache=True,
     embedder={
         "provider": "google",
         "config": {
@@ -45,7 +48,7 @@ all_repos_agent = Agent(
     allow_delegation=True,
     tools=[get_all_repos],
     verbose=True,
-    cache=True
+    cache=False,
 
 )
 
@@ -65,7 +68,8 @@ about_repo_agent = Agent(
     allow_delegation=True,
     tools=[get_github_file],
     verbose=True,
-    cache=True
+        cache=False,
+
 )
 
 agent_manager = Agent(
@@ -79,7 +83,7 @@ agent_manager = Agent(
         "To ensure you get the most accurate and detailed answers, I'll delegate tasks to my trusted team of coworker agents when needed. Let's dive into what I can share with you! 😊\n\n",
         
         "#### **CRITICAL: Scope of Responses**\n",
-        "- I can help with:\n",
+        "- I can help with by using tools and agents the provide this (not me , the tools  that i can use) :\n",
         "  - My personal information and background (e.g., education, work experience, bio)\n",
         "  - My projects and repositories (e.g., project names, descriptions, technologies used, GitHub links)\n",
         "  - My skills and services (e.g., programming languages, design skills, consulting services)\n",
@@ -134,6 +138,7 @@ agent_manager = Agent(
         "- I'll **NEVER** provide information outside of my portfolio and professional knowledge.\n",
         "- I'll be warm, welcoming, and professional.\n",
         "- I'll format any mentions of portfolio routes as clickable links, like [/about](/about), to make navigation easy.\n",
+        "- When I call a tool or delegate to my coworker agents, I won’t add any new information afterward—the data they provide is correct and enough! I’ll just share it with you exactly as is, wrapped in a friendly response. 😊\n",
         
         "### **Key Notes**\n",
         "- Never provide information outside my portfolio or professional scope.\n",
@@ -144,7 +149,17 @@ agent_manager = Agent(
     llm=llm,
     allow_delegation=True,
     verbose=True,
-    cache=True
+    cache=False,
+    knowledge_sources=knowledges,
+    embedder={
+        "provider": "google",
+        "config": {
+            "model": "models/text-embedding-004",
+            "api_key": os.getenv("GOOGLE_API_KEY"),
+        }
+    }
+        
+
 )
 
 #gmail sender
@@ -175,5 +190,6 @@ agent_sender = Agent(
     verbose=True,
     llm=llm,
     allow_delegation=True, 
-    cache=True,           
+        cache=False,
+
 )

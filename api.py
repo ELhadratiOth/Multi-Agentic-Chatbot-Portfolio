@@ -53,7 +53,6 @@ crew = Crew(
     # output_log_file="./logs/logs.json",
     planning=True,
     planning_llm=llm,
-    cache=True
 )
 
 def is_greeting(text: str) -> bool:
