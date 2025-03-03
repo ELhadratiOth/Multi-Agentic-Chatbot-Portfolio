@@ -45,11 +45,13 @@ This chatbot leverages multiple specialized AI agents to deliver comprehensive r
 |--------------------|-----------------|
 | **Backend Framework** | FastAPI         |
 | **AI Framework**     | CrewAI          |
-| **Embedding Model**  | Google Text Embedding |
-| **Memory Storage**   | Mem0            |
+| **LLM Model**  | Google Gemini flash 2.0 |
+| **Memory Storage**   | Mem0 ai           |
 | **Programming Language** | Python 3.x   |
 | **Email Service**   | SMTP             |
-| **Version Control** | GitHub API       |
+| **API** | GitHub API       |
+| **Monitoring** | AgentOps       |
+
 
 ## Setup
 
@@ -117,13 +119,13 @@ PortfolioChatbot/
 ### **2️ Agent System (`utils/agents.py`)**
 - **General Information Agent (RAG)**: Handles personal and background info.
 - **Repository Agent**: Fetches GitHub project data.
-- **About Repository Agent**: Provides detailed insights into projects.
+- **About Repository Agent**: Provides detailed insights about a project.
 - **Agent Manager**: Orchestrates agent interactions.
 - **Agent Gmail Sender**: Handles email-sending capabilities.
 
 ### **3️ Task Management (`utils/tasks.py`)**
 - Task definition & execution.
-- Assigns tasks to different agents.
+- Assigns task to agent manager.
 - Processes and formats responses.
 
 ### **4️ Data Models (`utils/base_models.py`)**

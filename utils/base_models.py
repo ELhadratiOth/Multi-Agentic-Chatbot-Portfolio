@@ -17,7 +17,6 @@ class Repository(BaseModel):
     creation_date: str = Field(..., description="The creation date of the repository in ISO format")
 
 class GitHubRepositories(BaseModel):
-
     repositories: List[Repository] = Field(..., description="Contains all repositories of the user")
 
 class GithubRepoDetails(BaseModel):
