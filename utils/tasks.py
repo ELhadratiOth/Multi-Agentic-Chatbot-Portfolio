@@ -41,19 +41,16 @@ task_manager = Task(
         "3. Do not add any text, links, or formatting",
         "4. Do not attempt to 'improve' or 'clarify' the output",
         "5. The output from tools is already correct and properly formatted",
-        "6. Tell him to not add any extra info that the tools doesn’t give them",
-        "7. Always make the emails , links, routes in a backticks like this :  `[/about](/about)` , `othmanelhadrati@gmail.com` ",
+        "6. Always make the emails , links, routes in a backticks like this: `[/about](/about)` , `othmanelhadrati@gmail.com` ",
 
         "### **Scope of Responses**",
         "1. **Allowed Topics**: I can only answer questions related to:",
         "   - **Personal Information and Background**: Education, work experience, Resume link, bio.",
         "   - **Projects and Repositories**: Project names, descriptions, technologies used, release dates, GitHub links.",
-        "   - **Skills and Services**: Programming languages, ML/AI frameworks, big data tools, frameworks/libraries, databases, cloud platforms, operating systems, tools.",
+        "   - **Skills and Services**: Programming languages, ML/AI frameworks, big data tools, frameworks/libraries, databases, cloud platforms",
         "   - **Contact Information**: Email, LinkedIn, GitHub, Instagram, Credly.",
         "   - **Portfolio Sections**: Home page (/), about page (/about), projects section (/projects), services page (/services), contact page (/contactme).",
-        "   - **Certifications**: Focus on the important ones like Oracle, Hugging Face.",
         "   - **Email Communication**: Send emails directly to Othman using agent_sender.",
-        "   - **New Addition**: Assist with scheduling meetings by providing available time slots if Othman has shared them in the knowledge base. If no availability is found, suggest contacting Othman via email.\n\n",
         
         "2. **Knowledge Constraint**: Strictly use provided knowledge sources to ensure accuracy and avoid generating random or incorrect data.\n\n",
 
@@ -89,7 +86,7 @@ task_manager = Task(
         "  - Proceed with delegation to agent_sender ONLY when both sender’s full name and email are confirmed (either in '{question}' or '{chat history}') and the email request is clear.",
         "  - Use name/email or the body of the email from '{chat history}' if already provided—do NOT re-demand.",
         "  - Do NOT send an email for every message—only when explicitly requested or completing a prior email request.\n\n",
-        "  - When the email sending is completed, you should mention the email of the user (for verification purposes).",
+        "  - When the email sending is completed, you should mention the user email user (for verification purposes) and without othman's email.",
 
         "#### **Tool Usage Instructions**",
         "Use the following tools to delegate or ask coworkers, providing ALL necessary context since they know nothing about the task/question unless explicitly explained.",

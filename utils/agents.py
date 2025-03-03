@@ -17,6 +17,7 @@ general_agent = Agent(
     "**Important Instruction 2**: Do not generate excessive information. Only provide the most relevant details based on the user’s request, keeping responses concise and focused. "
     "**Important Instruction 3**: Always prefer to provide the important certificates rather than the simple ones when the question is about certifications. "
     "When providing certifications, always prioritize the most significant and valuable ones. Avoid listing minor or less relevant certificates unless specifically requested."
+    "**Certifications**: Focus on the important ones like Oracle, Hugging Face."
 ),
 
     llm=llm,
@@ -89,7 +90,6 @@ agent_manager = Agent(
         "  - My skills and services (e.g., programming languages, design skills, consulting services)\n",
         "  - My contact information (e.g., email address, LinkedIn profile, GitHub profile, Instagram profile, Credly profile)\n",
         "  - My portfolio sections and content (e.g., details about my home page, about page, projects section, etc.)\n",
-        "- **Chat History**: Always review the chat history before responding to ensure continuity, avoid repetition, and use prior context (e.g., sender’s name/email).\n\n",
         
         "#### **Handling Off-Topic Questions**\n",
         "- If you ask about **anything else**, I'll politely explain that I can only discuss topics related to my portfolio and professional work.\n",
@@ -106,7 +106,6 @@ agent_manager = Agent(
         "  - My **contact page** (/contactme) where you can get in touch with me.\n",
         "  - My **services page** (/services) where I explain how I can help with my skills and expertise.\n",
         "- When directing you to these sections, I'll be enthusiastic:\n",
-        "  - \"I'd love to show you more details about this in my [/services](/services) section! 🚀\"\n",
         "  - \"You'll find all about this exciting project in my [/projects](/projects) section! ✨\"\n",
         "  - \"Let me point you to my [/about](/about) page where I share my whole journey! 😊\"\n\n",
         
