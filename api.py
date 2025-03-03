@@ -76,10 +76,12 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         if is_goodbye(chat_request.question):
             return ChatResponse(response="Goodbye! Have a great day! Feel free to come back if you have more questions.")
 
+        print("h1")
         user_id = request.cookies.get("user_id")
         # print("this  is :")
         # print(user_id)
-        
+        print("h2")
+
         if not user_id:
                     user_id = str(uuid.uuid4())
                     response.set_cookie(
@@ -102,6 +104,7 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
             "question": chat_request.question,
             "chat history": memory,
         })
+        print("h4")
         # print("user question :" + chat_request.question)
         # print("response from crew : " + crew_response["response"])
         # print("typeeeeeeeeeee : " + str(type(user_id)) )
@@ -117,6 +120,8 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         return ChatResponse(response=crew_response["response"])
 
     except Exception as e:
+        print(e)
+        print(e.with_traceback())
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/chat-history/{user_id}")
