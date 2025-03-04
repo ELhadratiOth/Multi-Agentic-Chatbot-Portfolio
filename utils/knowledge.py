@@ -7,7 +7,7 @@ knowledges = []
 # Create a JSON knowledge source with updated metadata
 json_source = JSONKnowledgeSource(
     file_paths=["../knowledge/general_data.json"],
-    chunk_size=3000,
+    chunk_size=1000,
     chunk_overlap=200,
     metadata={
         "source_type": "JSON",
