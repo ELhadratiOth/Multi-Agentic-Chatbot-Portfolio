@@ -149,14 +149,7 @@ agent_manager = Agent(
     allow_delegation=True,
     verbose=True,
     cache=False,
-    knowledge_sources=knowledges,
-    embedder={
-        "provider": "google",
-        "config": {
-            "model": "models/text-embedding-004",
-            "api_key": os.getenv("GOOGLE_API_KEY"),
-        }
-    }
+
         
 
 )
