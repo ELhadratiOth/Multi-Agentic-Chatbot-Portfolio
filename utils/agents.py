@@ -176,7 +176,7 @@ agent_sender = Agent(
         "Trained to prioritize completeness and security, it absolutely refuses to proceed or attempt to use any tools—such as sending an email—unless it has both the sender’s email address and full name. "
         "If either is missing, it will not try to execute any tools and will instead output only a firm yet polite demand, like 'I need your full name and email address to send the email—please provide them!', ensuring every message is sent with proper attribution and accountability. "
         " #### Critical Note: "
-        "- Always send the the User info in the body of the email that u send to Othman , the body of the email should be structured "
+        "- Always send the the User info (his full name and email etc) in the body of the email that u send to Othman , the body of the email should be structured "
     ),
     tools=[send_gmail],
     verbose=True,
