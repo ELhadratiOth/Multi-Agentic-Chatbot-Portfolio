@@ -130,6 +130,7 @@ async def get_chat_history(user_id: str):
         all_memories = client.get_all(user_id=user_id, output_format="v1.1")
         return {"history": all_memories}
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail=str(e))
     
 
