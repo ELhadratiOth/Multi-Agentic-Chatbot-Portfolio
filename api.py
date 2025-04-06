@@ -47,7 +47,7 @@ crew = Crew(
     agents=[all_repos_agent, about_repo_agent, general_agent, agent_sender, agent_manager],
     tasks=[task_manager],
     process=Process.sequential,
-    verbose=True, # i let it jsut  to  see the  logs in the server side
+    verbose=False, # i let it jsut  to  see the  logs in the server side
     # manager_llm=llm,
     # manager_agent=agent_manager,
     # output_log_file="./logs/logs.json",
@@ -76,11 +76,11 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         if is_goodbye(chat_request.question):
             return ChatResponse(response="Goodbye! Have a great day! Feel free to come back if you have more questions.")
 
-        print("h1")
+        # print("h1")
         user_id = request.cookies.get("user_id")
         # print("this  is :")
         # print(user_id)
-        print("h2")
+        # print("h2")
 
         if not user_id:
                     user_id = str(uuid.uuid4())
@@ -92,19 +92,20 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
                         path="/",
                         samesite="none",
                         secure=True                    )
-                    print(f"New user assigned ID: {user_id}")
+                    # print(f"New user assigned ID: {user_id}")
         else:
-            print(f"Existing user ID from cookie: {user_id}")
+            # print(f"Existing user ID from cookie: {user_id}")
+            pass
 
         all_memories = client.get_all(user_id=user_id,   output_format="v1.1")
-        print(all_memories)
+        # print(all_memories)
         memory = get_first_10_memories(all_memories)
-        print(f"Memory for user {user_id}: {memory}")
+        # print(f"Memory for user {user_id}: {memory}")
         crew_response = crew.kickoff(inputs={
             "question": chat_request.question,
             "chat history": memory,
         })
-        print("h4")
+        # print("h4")
         # print("user question :" + chat_request.question)
         # print("response from crew : " + crew_response["response"])
         # print("typeeeeeeeeeee : " + str(type(user_id)) )
@@ -120,8 +121,8 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         return ChatResponse(response=crew_response["response"])
 
     except Exception as e:
-        print(e)
-        print(e.with_traceback())
+        # print(e)
+        # print(e.with_traceback())
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/chat-history/{user_id}")

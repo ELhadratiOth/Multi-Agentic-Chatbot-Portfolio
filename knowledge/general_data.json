@@ -20,7 +20,7 @@
     }
   },
   "skills": {
-    "programming_languages": [
+    "programming languages": [
       "HTML5",
       "CSS3",
       "JavaScript",
@@ -28,26 +28,30 @@
       "Python",
       "C"
     ],
-    "ml_ai": [
+    "ML DL genAI AgenticAI": [
       "Scikit-learn",
       "Tensorflow",
       "OpenAI Gym",
       "Hugging Face",
-      "LangChain"
+      "LangChain",
+      "CrewAI",
+      "SmolAgent",
+      "Llamaindex"
     ],
-    "big_data": ["Kafka", "Sqoop", "Hive"],
-    "frameworks_libraries": [
+    "big data": ["Kafka", "Sqoop", "Hive"],
+    "frameworks and libraries": [
       "React",
       "Framer-Motion",
       "FastAPI",
       "Tailwind CSS",
       "Flask",
       "Shadcn UI",
-      "Bootstrap"
+      "Bootstrap",
+      "Nextjs"
     ],
     "databases": ["Oracle", "MySQL", "PostgreSQL", "MongoDB"],
-    "cloud_platforms": ["AWS"],
-    "operating_systems": ["Linux", "Windows"],
+    "cloud platforms": ["AWS"],
+    "operating systems": ["Linux", "Windows"],
     "tools": ["Git", "GitHub", "Postman", "Docker", "Power Automate"]
   },
   "services": [
