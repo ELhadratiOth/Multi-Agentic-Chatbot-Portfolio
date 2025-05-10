@@ -7,6 +7,11 @@ llm=LLM(
         temperature=0,
         verbose=True,    
         )
+planner=LLM(
+        model="gemini/gemini-2.5-flash-preview-04-17",
+        temperature=0,
+        verbose=True,    
+        )
 
 # llm_lang = GoogleGenerativeAI(
 #     model="gemini-2.0-flash",

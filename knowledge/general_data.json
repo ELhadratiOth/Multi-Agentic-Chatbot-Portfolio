@@ -38,7 +38,7 @@
       "SmolAgent",
       "Llamaindex"
     ],
-    "big data": ["Kafka", "Sqoop", "Hive"],
+    "big data": ["Spark","Kafka", "Sqoop", "Hive"],
     "frameworks and libraries": [
       "React",
       "Framer-Motion",
@@ -47,7 +47,11 @@
       "Flask",
       "Shadcn UI",
       "Bootstrap",
-      "Nextjs"
+      "Nextjs",
+      "Spring",
+      "Spring Boot"
+
+
     ],
     "databases": ["Oracle", "MySQL", "PostgreSQL", "MongoDB"],
     "cloud platforms": ["AWS"],
@@ -60,8 +64,8 @@
       "description": "Building scalable and secure data pipelines using ETL/ELT and AWS."
     },
     {
-      "name": "Machine Learning",
-      "description": "Developing and deploying AI models for intelligent automation."
+      "name": "Artificial Intelligence",
+      "description": "Developing and deploying AI models and applications for intelligent automation."
     },
     {
       "name": "Web Development",
@@ -187,5 +191,12 @@
       "location": "/contactme",
       "response": "You can use the contact form on my portfolio at /contactme to send me a message"
     }
-  }
+  },
+    "frequently_asked_questions": [
+      {
+        "question": "what is the used technologies in this portfolio ?",
+        "answer": "The UI of this portfolio was created using ReactJS, framer-motion and Tailwind CSS. The backend is powered by FastAPI and CrewAI for creating the the agentic system workflow for more details check this , for the  UI : https://github.com/ELhadratiOth/My-Portfolio  , for the backend : https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio ."
+      }
+    ]
+  
 }

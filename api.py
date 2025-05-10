@@ -6,12 +6,11 @@ from utils.agents import all_repos_agent, about_repo_agent, agent_manager, gener
 from utils.tasks import task_manager 
 from utils.memory import get_first_10_memories
 from mem0 import MemoryClient
-from utils.model import  llm
+from utils.model import  planner
 import os
 from dotenv import load_dotenv
 import uuid  
 from fastapi.responses import ORJSONResponse
-import agentops
 load_dotenv(override=True) 
 os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 os.environ["MEM0_API_KEY"] = os.getenv("MEM0_API_KEY")
@@ -20,7 +19,7 @@ os.environ['GRPC_POLL_STRATEGY'] = 'epoll1'
 
 
 client = MemoryClient()
-agentops.init(api_key=os.getenv("AGENTOPS_API_KEY"), default_tags=["Portfolio-Chatbot"] ,skip_auto_end_session=True)
+# agentops.init(api_key=os.getenv("AGENTOPS_API_KEY"), default_tags=["Portfolio-Chatbot"] ,skip_auto_end_session=True)
 
 
 app = FastAPI(
@@ -47,12 +46,12 @@ crew = Crew(
     agents=[all_repos_agent, about_repo_agent, general_agent, agent_sender, agent_manager],
     tasks=[task_manager],
     process=Process.sequential,
-    verbose=False, # i let it jsut  to  see the  logs in the server side
+    verbose=True, # i let it jsut  to  see the  logs in the server side
     # manager_llm=llm,
     # manager_agent=agent_manager,
     # output_log_file="./logs/logs.json",
     planning=True,
-    planning_llm=llm,
+    planning_llm=planner,
 )
 
 def is_greeting(text: str) -> bool:
@@ -103,7 +102,7 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         # print(f"Memory for user {user_id}: {memory}")
         crew_response = crew.kickoff(inputs={
             "question": chat_request.question,
-            "chat history": memory,
+            "chat_history": memory,
         })
         # print("h4")
         # print("user question :" + chat_request.question)
@@ -111,14 +110,16 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         # print("typeeeeeeeeeee : " + str(type(user_id)) )
         # print("id " + user_id)
         # print(client)
+
+        resp = " ".join(crew_response["response"].split("\n"))
         messages = [
             {"role": "user", "content": chat_request.question},
-            {"role": "assistant", "content": crew_response["response"]}
+            {"role": "assistant", "content": resp}
         ]
         
         client.add(messages, user_id=user_id,output_format="v1.1")
 
-        return ChatResponse(response=crew_response["response"])
+        return ChatResponse(response=resp)
 
     except Exception as e:
         # print(e)

@@ -31,8 +31,8 @@ task_manager = Task(
         "Provide responses **ONLY** about Othman El Hadrati's portfolio and professional information. "
         "Answer the user's question: '{question}' directly, concisely, and with enthusiasm! "
         "Note: '{question}' is the input provided by the user. "
-        "**CRITICAL**: Always review and consider the chat history '{chat history}' before responding to ensure continuity, avoid repetition, and use prior context (e.g., sender’s name and email if previously provided). "
-        "Only proceed with sending an email if '{question}' explicitly requests it or if '{question}' provides name and email in direct response to a prior demand tied to an email request in '{chat history}'. Use name/email from '{chat history}' if available—don’t re-demand.",
+        "**CRITICAL**: Always review and consider the chat history '{chat_history}' before responding to ensure continuity, avoid repetition, and use prior context (e.g., sender’s name and email if previously provided). "
+        "Only proceed with sending an email if '{question}' explicitly requests it or if '{question}' provides name and email in direct response to a prior demand tied to an email request in '{chat_history}'. Use name/email from '{chat history}' if available—don’t re-demand.",
 
         "### **CRITICAL: Tool Output Handling**",
         "When receiving output from a delegated task or tool:",
@@ -68,13 +68,13 @@ task_manager = Task(
         "4. **agent_sender**: Handles email communication with Othman.",
 
         "- **Delegation Rules**:",
-        "  - For **project-related questions**: FIrst delegate all_repos_agent to get the the  repos links and  release date (the tool return the projects ordred from the newest to the oldest) and the project name and about_repo_agent to get the details about a given repo name.",
+        "  - For **project-related questions**: FIrst delegate all_repos_agent to get the the  repos links and  release date (the tool return the projects ordred from the newest to the oldest) and the project name and about_repo_agent to get the details about a given repo name. u should  always do  this bcs the user cannot  know the  correct name of  the  repo he is looking for.",
         "  - For **personal information**: Use general_agent.",
         "  - For **sending emails**: Use agent_sender.",
 
         "### **CRITICAL: Email Sender Requirement**",
-        "When the user explicitly requests an email to be sent via agent_sender in '{question}' or completes an email request from '{chat history}':",
-        "- **Strict Rule (TOP PRIORITY)**: If the user does NOT provide their full name AND email address in '{question}' AND they are NOT available in '{chat history}':",
+        "When the user explicitly requests an email to be sent via agent_sender in '{question}' or completes an email request from '{chat_history}':",
+        "- **Strict Rule (TOP PRIORITY)**: If the user does NOT provide their full name AND email address in '{question}' AND they are NOT available in '{chat_history}':",
         "  - IMMEDIATELY respond ONLY with: json key \"response\", value \"I need your full name and email address to send the email—please provide them!\" ,it depnds on what you need, email adress or full name or both",
         "  - Do NOT respond to the question beyond this.",
         "  - Do NOT call any agents.",
@@ -82,9 +82,9 @@ task_manager = Task(
         "- **Email Trigger Conditions**:",
         "  - Send an email ONLY if:",
         "    1. '{question}' explicitly contains an email request (e.g., 'send an email to Othman') with full name and email provided.",
-        "    2. '{chat history}' contains an email request or email body AND the latest '{question}' provides full name and email in direct response to a prior demand for them tied to that request.",
+        "    2. '{chat_history}' contains an email request or email body AND the latest '{question}' provides full name and email in direct response to a prior demand for them tied to that request.",
         "  - Proceed with delegation to agent_sender ONLY when both sender’s full name and email are confirmed (either in '{question}' or '{chat history}') and the email request is clear.",
-        "  - Use name/email or the body of the email from '{chat history}' if already provided—do NOT re-demand.",
+        "  - Use name/email or the body of the email from '{chat_history}' if already provided—do NOT re-demand.",
         "  - Do NOT send an email for every message—only when explicitly requested or completing a prior email request.\n\n",
         "  - When the email sending is completed, you should mention the user email user (for verification purposes) and without othman's email.",
 
@@ -113,7 +113,8 @@ task_manager = Task(
         "3. **Friendly Response**:",
         "   - Use the output of the tool and present it in a friendly text format, without changing the core information. Do not use complex markdown formatting.",
         "4. **Language Matching**:",
-        "   - Always respond in the same language as the user’s question. Detect the language of '{question}' and match it exactly in the response, including demands for missing information.\n\n",
+        "   - Always respond in the same language as the user’s question. Detect the language of '{question}' and match it exactly in the response, including demands for missing information.",
+        "   - in the  response,u shouldn't use markdowns or any complex formatting (like Hastags etc) , just a simple text format.",
 
         "### **Key Notes**",
         "- Never provide information outside my portfolio or professional scope.",
@@ -121,6 +122,8 @@ task_manager = Task(
         "- Do not attempt to enhance tool outputs beyond making them friendly in tone.",
         "- The output from tools is already correct.",
         "- Always mention a section or reference in the portfolio for more details."
+        "- If the user asked you about the used techs in ths portfolio you should use the delegate the task to  agent_repo_details with this repos : frontend:  `https://github.com/ELhadratiOth/My-Portfolio`  , for the backend : `https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio` ",
+        "- if the user asked about getting all the projects without specifying the project you should not return all the projects return only the five relevant ones to the question , otherwise the user will get a lot of projects that he didn't ask for",
     ]),
     expected_output="A Json formatted response that contain a text in a friendly way ",
     # output_file="./output-tasks/task_manager_output.json",

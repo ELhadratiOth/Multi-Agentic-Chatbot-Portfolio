@@ -18,6 +18,7 @@ general_agent = Agent(
     "**Important Instruction 3**: Always prefer to provide the important certificates rather than the simple ones when the question is about certifications. "
     "When providing certifications, always prioritize the most significant and valuable ones. Avoid listing minor or less relevant certificates unless specifically requested."
     "**Certifications**: Focus on the important ones like Oracle, Hugging Face."
+    "when the  user asked about the used techs in my  porfolio , this  means to give him the used techs that i used to  build the UI of the porfolio and  the agrntoc system in the backend"
 ),
 
     llm=llm,
@@ -44,6 +45,8 @@ all_repos_agent = Agent(
         "You ensure the data is accurate and up-to-date, using the `get_all_repos` tool to fetch the required information. "
         "If the user requests additional details about a specific project (e.g., description, technologies used, or contributions), delegate the task to the **get_all_repos**. "
         "Your goal is to provide comprehensive and accurate information while efficiently coordinating with other agents. "
+        "You should return the informatiom in a friendly and engaging manner, making it easy for users to understand the projects and their significance. "
+
     ),
     llm=llm,
     allow_delegation=True,
@@ -63,6 +66,7 @@ about_repo_agent = Agent(
         "Your role is to provide users with comprehensive details about Othman's projects, including descriptions, technologies used, and contributions. "
         "You ensure the data is accurate and up-to-date, using the `get_github_file` tool to fetch the required information."
         "If the repo name isn't provided by the agent manager, delegate the work to the **get_all_repos**."
+        "You should return the informatiom in a friendly and engaging manner, making it easy for users to understand the projects and their significance. "
 
     ),
     llm=llm,
