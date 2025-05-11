@@ -10,13 +10,13 @@
     },
     "bio": "I am dedicated to harnessing technology to enhance people's lives. With a passion for both Data Engineering and Web Development, I focus on crafting polished, precise code. My main motivation as a programmer is to make a positive impact by helping people.",
     "social_media links": {
-      "linkedin": " `https://www.linkedin.com/in/othman-el-hadrati-91aa98243/` ",
-      "github profile": " `https://www.github.com/ELhadratiOth/` ",
-      "instagram": " `https://www.instagram.com/otnox_/` ",
-      "credly": " `https://www.credly.com/users/othman-elhadrati/` "
+      "linkedin": " `https://www.linkedin.com/in/othman-el-hadrati-91aa98243` ",
+      "github profile": " `https://www.github.com/ELhadratiOth` ",
+      "instagram": " `https://www.instagram.com/otnox_` ",
+      "credly": " `https://www.credly.com/users/othman-elhadrati` "
     } ,
     "RESUME / CV":{
-      "link" :" `https://www.0thman.tech/assets/MyCV-BADXlD6o.pdf/` "
+      "link" :" `https://www.0thman.tech/assets/MyCV-BADXlD6o.pdf` "
     }
   },
   "skills": {
@@ -94,25 +94,25 @@
         "name": "OCI 2024 Generative AI Certified Professional",
         "provider": "Oracle",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/GenAi-BTsWJ6oO.pdf/` "
+        "link": " `https://www.0thman.tech/assets/GenAi-BTsWJ6oO.pdf` "
       },
       {
         "name": "Hugging Face Agents Course",
         "provider": "Hugging Face",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/HuggingFace-FM6sgAjF.pdf/` "
+        "link": " `https://www.0thman.tech/assets/HuggingFace-FM6sgAjF.pdf` "
       },
       {
         "name": "OCI 2024 Certified AI Foundations Associate",
         "provider": "Oracle",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/Ai-Cwcp6XJk.pdf/` "
+        "link": " `https://www.0thman.tech/assets/Ai-Cwcp6XJk.pdf` "
       },
       {
         "name": "Machine Learning Specialization",
         "provider": "Stanford University - Coursera",
         "date": "2024",
-        "link": " `https://www.coursera.org/account/accomplishments/specialization/KIZAQJBAYH54/` "
+        "link": " `https://www.coursera.org/account/accomplishments/specialization/KIZAQJBAYH54` "
       }
     ],
     "simple certifications": [
@@ -120,43 +120,43 @@
         "name": "Python for Beginners",
         "provider": "Simplilearn",
         "date": "2024",
-        "link": " `https://simpli-web.app.link/e/6AcNpCdPhLb/` "
+        "link": " `https://simpli-web.app.link/e/6AcNpCdPhLb` "
       },
       {
         "name": "Java Programming: Solving Problems",
         "provider": "Duke University - Coursera",
         "date": "2024",
-        "link": " `https://www.coursera.org/account/accomplishments/verify/THZP9WU2S58X/` "
+        "link": " `https://www.coursera.org/account/accomplishments/verify/THZP9WU2S58X` "
       },
       {
         "name": "Getting Started with Git and GitHub",
         "provider": "IBM - Coursera",
         "date": "2024",
-        "link": " `https://www.coursera.org/account/accomplishments/verify/C9GZALZCQ7XT/` "
+        "link": " `https://www.coursera.org/account/accomplishments/verify/C9GZALZCQ7XT` "
       },
       {
         "name": "Introduction to Linux Commands and Shell Scripting",
         "provider": "IBM - Coursera",
         "date": "2024",
-        "link": " `https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA/` "
+        "link": " `https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA` "
       },
       {
         "name": "Python Certificate",
         "provider": "CodSoft",
         "date": "2024",
-        "link": " `https://www.0thman.tech/assets/CodSoft--CtCbaYN.pdf/` "
+        "link": " `https://www.0thman.tech/assets/CodSoft--CtCbaYN.pdf` "
       },
       {
         "name": "Database Structures and Management with MySQL",
         "provider": "Meta - Coursera",
         "date": "2024",
-        "link": " `https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS/` "
+        "link": " `https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS` "
       },
       {
         "name": "Introduction to Databases",
         "provider": "Meta - Coursera",
         "date": "2023",
-        "link": " `https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3/` "
+        "link": " `https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3` "
       }
     ]
   },

@@ -1,6 +1,5 @@
 from crewai import Agent
 from utils.model import llm ,planner
-import os
 from utils.tools import get_all_repos, get_github_file ,send_gmail
 from utils.retriever import general_info_retriever
 # from langgraph.prebuilt import create_react_agent
@@ -138,7 +137,7 @@ agent_manager = Agent(
         "- Never modify or add to the output from delegated tasks - return exactly what they provide.\n",
         "- When delegating tasks to other agents, I must return their exact output without any modifications in the links or the core information and do not add extra information that doesn’t exist, make the response friendly.\n",
         "- The output from delegated tasks is already verified - do not change it, change just the text to string to be more friendly to the user."
-        "- For the links and emails u should do  like  this : base shape : `url` should be  transformed to =>  [link text](url) u should  remove the backticks and add the link text in the brackets, and the url in the parenthesis. \n"
+        "- For the links and emails u should do  like  this : base shape : `url` should be  transformed to =>  [meaninful text](url) u should  remove the backticks and add the link text in the brackets, and the url in the parenthesis. \n"
     ]),
     llm=llm,
     allow_delegation=True,

@@ -107,6 +107,8 @@ task_manager = Task(
         "   - NEVER modify output from tools or delegated tasks.",
         "   - Return EXACTLY what was received.",
         "   - Don't add any extra informations that u didnt recieved from the tools"
+        "- For the links and emails u should do  like  this : base shape : `url` should be  transformed to =>  [meaninful text](url) u should  remove the backticks and add the link text in the brackets, and the url in the parenthesis. \n"
+
         "2. **Precision**:",
         "   - Only provide requested information.",
         "   - If data is missing from the knowledge base, say: 'I don’t have that info right now—feel free to explore my [/about](/about) page instead! 😊'—and avoid assumptions.",
