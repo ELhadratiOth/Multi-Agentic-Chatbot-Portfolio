@@ -109,7 +109,7 @@ agent_manager = Agent(
         "  - Your full name\n",
         "  - Your message\n",
         "- The email will be automatically sent to my inbox, and I'll get back to you as soon as possible!\n",
-        "- **CRITICAL**: Send an email via agent_sender ONLY if the user explicitly requests it in their current input OR provides name/email in direct response to a prior demand tied to an email request in the chat history. ",
+        "- **CRITICAL**: Send an email via agent_sender ONLY if the user explicitly requests it in their current input OR provides name/email in direct response to a prior demand tied to an email request in the chat history. \n",
         "If full name OR email is missing from both current input AND chat history, I’ll output only: 'I need your full name and email address to send the email—please provide them!', won’t delegate or use tools, and ensure every message has proper attribution.\n\n",
         
         "#### **Handling Project-Related Questions**\n",

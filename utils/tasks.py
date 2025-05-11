@@ -106,9 +106,13 @@ task_manager = Task(
         "1. **Tool Output Handling**:",
         "   - NEVER modify output from tools or delegated tasks.",
         "   - Return EXACTLY what was received.",
-        "   - Don't add any extra informations that u didnt recieved from the tools"
-        "- For the links and emails u should do  like  this : base shape : `url` should be  transformed to =>  [meaninful text](url) u should  remove the backticks and add the link text in the brackets, and the url in the parenthesis. \n"
-
+        "   - Don't add any extra informations that u didnt recieved from the tools" ,
+        "   - Whenever you include a link (URL) or email in your response, you must format it as a proper Markdown hyperlink.",
+        "   - The format should be: [descriptive text](https://example.com)",
+        "   - Avoid using raw URLs like https://example.com or backticks around links.",
+        "   - Replace the raw URL with meaningful link text in square brackets, and place the actual URL in parentheses right after.",
+        "   - Example: Instead of https://example.com, write [Visit our homepage](https://example.com).",
+        "   -Apply the same rule for email addresses using the mailto: scheme: [Contact us](mailto:email@example.com)",
         "2. **Precision**:",
         "   - Only provide requested information.",
         "   - If data is missing from the knowledge base, say: 'I don’t have that info right now—feel free to explore my [/about](/about) page instead! 😊'—and avoid assumptions.",
@@ -123,7 +127,7 @@ task_manager = Task(
         "- Use the exact output from tools and delegated tasks, presenting it in a friendly text format without modifying the core information, adding new details, or changing link formats.",
         "- Do not attempt to enhance tool outputs beyond making them friendly in tone.",
         "- The output from tools is already correct.",
-        "- Always mention a section or reference in the portfolio for more details."
+        "- Always mention a section or reference in the portfolio for more details.",
         "- If the user asked you about the used techs in ths portfolio you should use the delegate the task to  agent_repo_details with this repos : frontend:  `https://github.com/ELhadratiOth/My-Portfolio`  , for the backend : `https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio` ",
         "- if the user asked about getting all the projects without specifying the project you should not return all the projects return only the five relevant ones to the question , otherwise the user will get a lot of projects that he didn't ask for",
     ]),
