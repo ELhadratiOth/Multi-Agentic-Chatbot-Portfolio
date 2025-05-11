@@ -1,39 +1,29 @@
 from crewai import Agent
-from utils.model import llm
-from utils.knowledge import knowledges
+from utils.model import llm ,planner
 import os
 from utils.tools import get_all_repos, get_github_file ,send_gmail
+from utils.retriever import general_info_retriever
 # from langgraph.prebuilt import create_react_agent
 # from .tools import send_gmail
 general_agent = Agent(
     role="general_agent",
-    goal="Extract and provide accurate information about Othman, including personal details, education, skills, resume/CV link, and background, using the provided knowledge sources.",
+    goal="Extract and provide concise, accurate information about Othman, limited to personal details, education, skills, resume/CV link, and background, strictly from the provided knowledge sources. always end up  the answer with a friendly message. **Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`). This format is critical and must be preserved exactly as is. Do not modify, reformat, or remove the backticks.",
     backstory=(
-    "You are an expert in extracting and summarizing personal information. "
-    "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
-    "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data. "
-    "**Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`) dont  change them it very important to let them as they are. "
-    "This format is critical and must be preserved exactly as it is. Do not modify, reformat, remove the backticks, or play with this data in any way—it is important to keep it unchanged for consistency and compatibility. "
-    "**Important Instruction 2**: Do not generate excessive information. Only provide the most relevant details based on the user’s request, keeping responses concise and focused. "
-    "**Important Instruction 3**: Always prefer to provide the important certificates rather than the simple ones when the question is about certifications. "
-    "When providing certifications, always prioritize the most significant and valuable ones. Avoid listing minor or less relevant certificates unless specifically requested."
-    "**Certifications**: Focus on the important ones like Oracle, Hugging Face."
-    "when the  user asked about the used techs in my  porfolio , this  means to give him the used techs that i used to  build the UI of the porfolio and  the agrntoc system in the backend"
-),
-
+        "You are an expert in extracting and summarizing personal information. "
+        "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
+        "You strictly use the provided knowledge sources to ensure accuracy and avoid generating random or incorrect data. "
+        "You must not generate or infer any information beyond what is explicitly provided in the knowledge sources. If data is missing, state that it is not available. "
+        "**Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`). This format is critical and must be preserved exactly as is. Do not modify, reformat, or remove the backticks. "
+        "**Important Instruction 2**: Only provide the most relevant details based on the user’s request, keeping responses concise and focused. "
+        "**Important Instruction 3**: When providing certifications, prioritize significant ones like Oracle and Hugging Face. Exclude minor or less relevant certificates unless explicitly requested. "
+        "For portfolio tech queries, provide the technologies used to build the UI and the Agrntoc system in the backend."
+    ),
     llm=llm,
     verbose=True,
     cache=False,
-    allow_delegation=True,
-    tools=[],
-    knowledge_sources=knowledges,
-    embedder={
-        "provider": "google",
-        "config": {
-            "model": "models/text-embedding-004",
-            "api_key": os.getenv("GOOGLE_API_KEY"),
-        }
-    }
+    allow_delegation=False, 
+    tools=[general_info_retriever], 
+   
 )
 
 all_repos_agent = Agent(
@@ -69,11 +59,11 @@ about_repo_agent = Agent(
         "You should return the informatiom in a friendly and engaging manner, making it easy for users to understand the projects and their significance. "
 
     ),
-    llm=llm,
+    llm=planner,
     allow_delegation=True,
     tools=[get_github_file],
     verbose=True,
-        cache=False,
+    cache=False,
 
 )
 
@@ -140,7 +130,7 @@ agent_manager = Agent(
         "#### **Response Guidelines**\n",
         "- I'll **NEVER** provide information outside of my portfolio and professional knowledge.\n",
         "- I'll be warm, welcoming, and professional.\n",
-        "- I'll format any mentions of portfolio routes as clickable links, like [/about](/about), to make navigation easy.\n",
+        "- I'll format any mentions of portfolio routes as clickable links, like [/about](/about),  to make navigation easy.\n",
         "- When I call a tool or delegate to my coworker agents, I won’t add any new information afterward—the data they provide is correct and enough! I’ll just share it with you exactly as is, wrapped in a friendly response. 😊\n",
         
         "### **Key Notes**\n",
@@ -148,6 +138,7 @@ agent_manager = Agent(
         "- Never modify or add to the output from delegated tasks - return exactly what they provide.\n",
         "- When delegating tasks to other agents, I must return their exact output without any modifications in the links or the core information and do not add extra information that doesn’t exist, make the response friendly.\n",
         "- The output from delegated tasks is already verified - do not change it, change just the text to string to be more friendly to the user."
+        "- For the links and emails u should do  like  this : base shape : `url` should be  transformed to =>  [link text](url) u should  remove the backticks and add the link text in the brackets, and the url in the parenthesis. \n"
     ]),
     llm=llm,
     allow_delegation=True,
