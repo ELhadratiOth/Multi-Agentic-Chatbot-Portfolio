@@ -10,3 +10,4 @@ langchain_qdrant
 qdrant-client
 fastembed
 jq
+langchain_google_genai

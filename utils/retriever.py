@@ -1,5 +1,4 @@
 import os
-import logging
 from langchain_qdrant import QdrantVectorStore
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from qdrant_client import QdrantClient
@@ -7,9 +6,6 @@ from dotenv import load_dotenv
 from pydantic import Field
 from crewai.tools import tool
 
-# Set up logging
-# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-# logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv(override=True)
