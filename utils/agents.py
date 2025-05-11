@@ -7,7 +7,7 @@ from utils.retriever import general_info_retriever
 # from .tools import send_gmail
 general_agent = Agent(
     role="general_agent",
-    goal="Extract and provide concise, accurate information about Othman, limited to personal details, education, skills, resume/CV link, and background, strictly from the provided knowledge sources. always end up  the answer with a friendly message. **Important Instruction 1**: The emails and links stored in the knowledge base are enclosed in backticks (e.g., `othmanelhadrati@gmail.com`, `https://www.0thman.tech`). This format is critical and must be preserved exactly as is. Do not modify, reformat, or remove the backticks.",
+    goal="Extract and provide concise, accurate informations about Othman EL Hadrati, including his email, contact information, skills, and background.",
     backstory=(
         "You are an expert in extracting and summarizing personal information. "
         "Your role is to assist users in finding details about Othman, such as his email, contact information, skills, and background. "
