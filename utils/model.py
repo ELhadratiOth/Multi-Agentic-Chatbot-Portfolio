@@ -3,12 +3,12 @@ from crewai import LLM
 # import os
 
 llm=LLM(
-        model="gemini/gemini-2.0-flash",
+        model="gemini/gemini-2.5-flash",
         temperature=0,
         verbose=True,    
         )
 planner=LLM(
-        model="gemini/gemini-2.5-flash-preview-04-17",
+        model="gemini/gemini-2.5-flash",
         temperature=0,
         verbose=True,    
         )
