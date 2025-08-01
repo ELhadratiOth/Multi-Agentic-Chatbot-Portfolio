@@ -31,4 +31,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python ./knowledge/data_ingestion_qdrant.py
+      run: python ./knowledge/data_ingestion_qdrant_ci_cd.py
