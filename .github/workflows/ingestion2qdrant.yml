@@ -9,6 +9,10 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+
 
     steps:
     - name: Import project files
