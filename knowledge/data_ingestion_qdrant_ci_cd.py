@@ -129,7 +129,7 @@ def json_to_chunks(data):
 
 # Load and process JSON
 try:
-    with open("general_data.json", "r") as f:
+    with open("./knowledge/general_data.json", "r") as f:
         json_data = json.load(f)
 except FileNotFoundError:
     logger.error("JSON file 'general_data.json' not found")
