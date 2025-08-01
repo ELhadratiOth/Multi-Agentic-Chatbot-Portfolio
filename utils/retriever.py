@@ -22,7 +22,7 @@ if not all([url, api_key, google_api_key]):
 # Initialize embeddings
 try:
     embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004",
+        model="models/gemini-embedding-001",
         task_type="semantic_similarity",
         google_api_key=google_api_key
     )
