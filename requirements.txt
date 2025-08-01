@@ -6,8 +6,9 @@ pydantic
 mem0ai
 requests
 google-generativeai
-langchain_qdrant
+langchain-qdrant
 qdrant-client
 fastembed
 jq
-langchain_google_genai
+langchain-google-genai
+langchain-community
