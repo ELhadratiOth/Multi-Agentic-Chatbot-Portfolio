@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 import uuid  
 from fastapi.responses import ORJSONResponse
 import tempfile
+from pydub import AudioSegment
+import io
 load_dotenv(override=True) 
 os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 os.environ["MEM0_API_KEY"] = os.getenv("MEM0_API_KEY")
@@ -133,6 +135,26 @@ async def voice_chat_endpoint(request: Request, response: Response, audio_file: 
         if not audio_file.content_type.startswith('audio/'):
             raise HTTPException(status_code=400, detail="File must be an audio file")
         
+        audio_content = await audio_file.read()
+        
+        try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+                temp_file.write(audio_content)
+                temp_file_path = temp_file.name
+            
+            audio = AudioSegment.from_file(temp_file_path)
+            duration_seconds = len(audio) / 1000.0  #
+            
+            os.unlink(temp_file_path)
+            
+            if duration_seconds > 60:
+                return ChatResponse(
+                    response="Whoa, your audio message is so epic it could have its own movie trailer! 🎬 But my ears can only handle up to 1 minute of your beautiful voice. Can you trim it down to the highlights? I promise to give you my most brilliant response once you share the condensed version! ✨",
+                )
+            
+        except Exception as duration_error:
+            print(f"Could not determine audio duration: {duration_error}")
+        
         user_id = request.cookies.get("user_id")
         if not user_id:
             user_id = str(uuid.uuid4())
@@ -151,7 +173,6 @@ async def voice_chat_endpoint(request: Request, response: Response, audio_file: 
         
         audio_file_path = os.path.join(audios_dir, f"{user_id}.wav")
         
-        audio_content = await audio_file.read()
         with open(audio_file_path, "wb") as f:
             f.write(audio_content)
         
@@ -176,6 +197,7 @@ async def voice_chat_endpoint(request: Request, response: Response, audio_file: 
             return ChatResponse(response=resp)
             
         finally:
+            # Always clean up the audio file
             if os.path.exists(audio_file_path):
                 os.unlink(audio_file_path)
 
