@@ -12,3 +12,4 @@ fastembed
 jq
 langchain-google-genai
 langchain-community
+python-multipart

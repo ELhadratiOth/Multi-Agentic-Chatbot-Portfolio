@@ -33,3 +33,5 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str = Field(...)
     status: str = "success"
+
+

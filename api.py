@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, Response  
+from fastapi import FastAPI, HTTPException, Request, Response, UploadFile, File  
 from fastapi.middleware.cors import CORSMiddleware
 from utils.base_models import ChatRequest, ChatResponse
 from crewai import Crew, Process
@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 import uuid  
 from fastapi.responses import ORJSONResponse
+import tempfile
 load_dotenv(override=True) 
 os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 os.environ["MEM0_API_KEY"] = os.getenv("MEM0_API_KEY")
@@ -25,7 +26,7 @@ client = MemoryClient()
 app = FastAPI(
     title="Portfolio Chatbot API",
     description="API for Othman's Portfolio Chatbot",
-    version="1.0.0",
+    version="1.5.0",
     default_response_class=ORJSONResponse
 )
 
@@ -46,7 +47,7 @@ crew = Crew(
     agents=[all_repos_agent, about_repo_agent, general_agent, agent_sender, agent_manager],
     tasks=[task_manager],
     process=Process.sequential,
-    verbose=True, # i let it jsut  to  see the  logs in the server side
+    verbose=True,
     # manager_llm=llm,
     # manager_agent=agent_manager,
     # output_log_file="./logs/logs.json",
@@ -126,6 +127,63 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest, response: R
         # print(e.with_traceback())
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/voice-chat", response_model=ChatResponse)
+async def voice_chat_endpoint(request: Request, response: Response, audio_file: UploadFile = File(...)):
+    try:
+        if not audio_file.content_type.startswith('audio/'):
+            raise HTTPException(status_code=400, detail="File must be an audio file")
+        
+        user_id = request.cookies.get("user_id")
+        if not user_id:
+            user_id = str(uuid.uuid4())
+            response.set_cookie(
+                key="user_id",
+                value=user_id,
+                httponly=True, 
+                max_age=259200,  # 3 days
+                path="/",
+                samesite="none",
+                secure=True
+            )
+        
+        audios_dir = "audios"
+        os.makedirs(audios_dir, exist_ok=True)
+        
+        audio_file_path = os.path.join(audios_dir, f"{user_id}.wav")
+        
+        audio_content = await audio_file.read()
+        with open(audio_file_path, "wb") as f:
+            f.write(audio_content)
+        
+        try:
+            all_memories = client.get_all(user_id=user_id, output_format="v1.1")
+            memory = get_first_10_memories(all_memories)
+            
+            crew_response = crew.kickoff(inputs={
+                "question": audio_file_path,
+                "chat_history": memory,
+            })
+            
+            resp = " ".join(crew_response["response"].split("\n"))
+            
+            messages = [
+                {"role": "user", "content": f"User sent a voice message using voice tool. Audio path: {audio_file_path}"},
+                {"role": "assistant", "content": resp}
+            ]
+            
+            client.add(messages, user_id=user_id, output_format="v1.1")
+            
+            return ChatResponse(response=resp)
+            
+        finally:
+            if os.path.exists(audio_file_path):
+                os.unlink(audio_file_path)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/chat-history/{user_id}")
 async def get_chat_history(user_id: str):
     try:        
@@ -138,4 +196,4 @@ async def get_chat_history(user_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app=app, host="0.0.0.0", port=8000 , reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

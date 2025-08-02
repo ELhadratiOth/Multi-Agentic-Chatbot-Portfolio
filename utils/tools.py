@@ -6,7 +6,6 @@ import base64
 from datetime import datetime
 # from langchain_community.agent_toolkits.gmail.toolkit import GmailToolkit
 # from langchain_google_community.gmail.utils import build_resource_service, get_gmail_credentials
-import base64
 # import json
 # from google.oauth2.service_account import Credentials
 # from langchain.agents import initialize_agent, AgentType
@@ -14,6 +13,7 @@ import base64
 # from utils.model import  llm_lang
 import smtplib
 from email.mime.text import MIMEText
+import google.generativeai as genai
 
 load_dotenv(override=True)
 github_token = os.getenv("GITHUB_TOKEN")
@@ -151,4 +151,56 @@ def send_gmail(subject: str, body: str) -> str:
         return "email not sent 3"
     
 
+@tool("Audio Transcription Tool")
+def transcribe_audio(file_path: str) -> str:
+    """
+    Transcribe an audio file.
+
+    Args:
+        file_path (str): The path to the audio file to transcribe. 
+                        Use forward slashes (/) or double backslashes (\\\\) in paths.
+                        Examples: 
+                        - "audios/audio.wav" (Linux/Unix style)
+                        - "audios\\\\audio.wav" (Windows style with escaped backslashes)
+                        - "/tmp/audio.wav" (Absolute path)
+        
+    Returns:
+        str: The transcribed text from the audio file, or an error message if transcription fails
+        
+    Note:
+        - Supports common audio formats (wav)
+    """
+    try:
+        # Configure the Gemini API
+        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+        
+        # Normalize the file path to handle both Windows and Linux
+        normalized_path = os.path.normpath(file_path)
+        
+        # Check if file exists
+        if not os.path.exists(normalized_path):
+            return f"Error: File not found at path: {normalized_path}"
+        
+        # Upload the audio file
+        audio_file = genai.upload_file(normalized_path)
+        
+        # Create the model
+        model = genai.GenerativeModel("gemini-2.5-pro")
+        
+        # Transcribe the audio
+        prompt = "Transcribe this audio file. Only return the transcribed text, nothing else."
+        response = model.generate_content([prompt, audio_file])
+        
+        # Clean up the uploaded file from Gemini's storage
+        genai.delete_file(audio_file.name)
+        
+        return response.text.strip()
+        
+    except FileNotFoundError:
+        return f"Error: Audio file not found at {normalized_path if 'normalized_path' in locals() else file_path}"
+    except Exception as e:
+        return f"Error during transcription: {str(e)}"
+
 # send_gmail("salam","salam") 
+
+# print(transcribe_audio("C:\\Users\\othma\\Downloads\\wav.wav"))

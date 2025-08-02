@@ -1,6 +1,6 @@
 from crewai import Agent
 from utils.model import llm ,planner
-from utils.tools import get_all_repos, get_github_file ,send_gmail
+from utils.tools import get_all_repos, get_github_file ,send_gmail ,transcribe_audio
 from utils.retriever import general_info_retriever
 # from langgraph.prebuilt import create_react_agent
 # from .tools import send_gmail
@@ -142,9 +142,8 @@ agent_manager = Agent(
     llm=llm,
     allow_delegation=True,
     verbose=True,
-    cache=False,
-
-        
+    cache=False,    
+    tools=[transcribe_audio]  
 
 )
 
