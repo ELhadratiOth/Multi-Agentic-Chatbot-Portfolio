@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 import uuid  
 from fastapi.responses import ORJSONResponse
 import tempfile
-from pydub import AudioSegment
+import wave
 import io
 load_dotenv(override=True) 
 os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
@@ -142,8 +142,15 @@ async def voice_chat_endpoint(request: Request, response: Response, audio_file: 
                 temp_file.write(audio_content)
                 temp_file_path = temp_file.name
             
-            audio = AudioSegment.from_file(temp_file_path)
-            duration_seconds = len(audio) / 1000.0  #
+            try:
+                with wave.open(temp_file_path, 'r') as wav_file:
+                    frames = wav_file.getnframes()
+                    rate = wav_file.getframerate()
+                    duration_seconds = frames / rate
+            except wave.Error:
+                file_size = len(audio_content)
+                estimated_duration = file_size / (44100 * 2)  
+                duration_seconds = estimated_duration
             
             os.unlink(temp_file_path)
             
