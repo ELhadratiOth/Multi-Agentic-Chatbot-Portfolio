@@ -1,0 +1,189 @@
+{
+  "projects": [
+    {
+      "id": 13,
+      "serviceName": "Portfolio Multi-Agentic ChatBot",
+      "tools": ["CrewAI2", "SiFastapi", "MemoAI", "AgentOps", "Qdrant"],
+      "link": "https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent",
+      "imgUrl": "PortfolioChatBotArchi",
+      "project_type": "ai"
+    },
+    {
+      "id": 14,
+      "serviceName": "ENSAH conversational ChatBot",
+      "tools": [
+        "SiFastapi",
+        "SiLangchain",
+        "SiStreamlit",
+        "SiMongodb",
+        "FaDocker"
+      ],
+      "link": "https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP.git",
+      "imgUrl": "ChatBot",
+      "project_type": "ai"
+    },
+    {
+      "id": 15,
+      "serviceName": "Al Hoceima Guide AI Chatbot",
+      "tools": ["LlamaIndex", "SiFastapi", "SiMysql", "Qdrant"],
+      "link": "https://www.youtube.com/watch?v=B2g1hhIHui8",
+      "imgUrl": "Hociematy",
+      "project_type": "ai"
+    },
+    {
+      "id": 16,
+      "serviceName": "Darija Sentiment Analysis",
+      "tools": ["SiFastapi", "FaAws", "FaReact", "SiScikitlearn"],
+      "link": "https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git",
+      "imgUrl": "DarijaUI",
+      "project_type": "ai"
+    },
+    {
+      "id": 17,
+      "serviceName": "Credit Card Fraud Detection Pipline",
+      "tools": ["SiApachekafka", "FaAws", "FaReact"],
+      "link": "https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git",
+      "imgUrl": "CreditCardPipline",
+      "project_type": "data"
+    },
+    {
+      "id": 18,
+      "serviceName": "MongoDB Shared Project",
+      "tools": [
+        "SiApachekafka",
+        "FaReact",
+        "SiFastapi",
+        "DiRedis",
+        "SiMongodb"
+      ],
+      "link": "https://github.com/ELhadratiOth/MongoDB_Sharded.git",
+      "imgUrl": "ShardedDB",
+      "project_type": "data"
+    },
+    {
+      "id": 19,
+      "serviceName": "Movies Pipeline",
+      "tools": ["FaAws", "Scoop", "SiApachehadoop", "SiApachehive", "SiMysql"],
+      "link": "https://github.com/ELhadratiOth/Movies-Pipeline.git",
+      "imgUrl": "Sqooparchi",
+      "project_type": "data"
+    },
+    {
+      "id": 20,
+      "serviceName": "GitHub Analyser",
+      "tools": ["FaPython", "SiStreamlit"],
+      "link": "https://github.com/ELhadratiOth/GitTrendAnalyz",
+      "imgUrl": "GitHubAnalyserImg",
+      "project_type": "data"
+    },
+    {
+      "id": 21,
+      "serviceName": "Jumia Pipline",
+      "tools": ["BiLogoPostgresql", "FaPython"],
+      "link": "https://github.com/ELhadratiOth/Jumia-Pipeline.git",
+      "imgUrl": "JumiaPipelineImg",
+      "project_type": "data"
+    },
+    {
+      "id": 22,
+      "serviceName": "Spotify Pipeline",
+      "tools": ["FaAws", "FaPython"],
+      "link": "https://github.com/ELhadratiOth/Spotify-ETL-AWS-.git",
+      "imgUrl": "SpotifyPipelineImg",
+      "project_type": "data"
+    },
+    {
+      "id": 23,
+      "serviceName": "Medical Office",
+      "tools": [
+        "FaReact",
+        "RiTailwindCssFill",
+        "SiFastapi",
+        "SiShadcnui",
+        "SiMysql",
+        "FaDocker"
+      ],
+      "link": "https://github.com/ELhadratiOth/Cabinet-Medical.git",
+      "imgUrl": "MedicalOffice",
+      "project_type": "dev"
+    },
+    {
+      "id": 24,
+      "serviceName": "Youtube Video Downloader",
+      "tools": ["FaHtml5", "IoLogoCss3", "IoLogoJavascript", "SiFlask"],
+      "link": "https://github.com/ELhadratiOth/Youtube-video-Downloader",
+      "imgUrl": "YoutubeVideoDownloaderImg",
+      "project_type": "dev"
+    },
+    {
+      "id": 25,
+      "serviceName": "PortFolio",
+      "tools": ["FaReact", "TbBrandFramerMotion", "RiTailwindCssFill"],
+      "link": "https://github.com/ELhadratiOth/My-PortFolio",
+      "imgUrl": "PortFolioImg",
+      "project_type": "dev"
+    },
+    {
+      "id": 26,
+      "serviceName": "Hotel Landing Page",
+      "tools": ["FaHtml5", "IoLogoCss3"],
+      "link": "https://github.com/ELhadratiOth/CR7-Hotel-Project",
+      "imgUrl": "HotelLandingPageImg",
+      "project_type": "dev"
+    },
+    {
+      "id": 27,
+      "serviceName": "Weather APP",
+      "tools": ["FaPython"],
+      "link": "https://github.com/ELhadratiOth/WeatherApp",
+      "imgUrl": "WeatherAppImg",
+      "project_type": "dev"
+    },
+    {
+      "id": 28,
+      "serviceName": "Purchasing Management",
+      "tools": ["Ccompo"],
+      "link": "https://github.com/ELhadratiOth/C-Project",
+      "imgUrl": "PurshaseApp",
+      "project_type": "dev"
+    },
+    {
+      "id": 29,
+      "serviceName": "Dataset Annotation and ML Training models Platform",
+      "tools": [
+        "SiSpringboot",
+        "FaReact",
+        "SiFastapi",
+        "SiSpringsecurity",
+        "BiLogoPostgresql"
+      ],
+      "link": "https://github.com/ELhadratiOth/Gestion-Des-Annotateurs",
+      "imgUrl": "AnnotationPlatform",
+      "project_type": "dev"
+    },
+    {
+      "id": 30,
+      "serviceName": "Telecom Data Processing Pipeline",
+      "tools": [
+        "SiApachekafka",
+        "DiSpark",
+        "BiLogoPostgresql",
+        "IoMdAnalytics"
+      ],
+      "link": "https://github.com/ELhadratiOth/Telecom-Data-Processing-Pipeline-with-Spark-Kafka",
+      "imgUrl": "TelecomPipeline",
+      "project_type": "data"
+    },
+    {
+      "id": 31,
+      "serviceName": "AI-powered podcast generator by fine-tuning TTS model",
+      "tools": [
+        "CrewAI2",
+        "Unsloth"
+      ],
+      "link": "https://www.linkedin.com/posts/othman-el-hadrati-91aa98243_aicontent-voiceai-tts-activity-7334997034397032448-ZE9s?utm_source=share&utm_medium=member_desktop&rcm=ACoAADx-vCYByN5jr0n50heL3LUBB6CVNA7WsNY",
+      "imgUrl": "AIPodcastGenerator",
+      "project_type": "ai"
+    }
+  ]
+}

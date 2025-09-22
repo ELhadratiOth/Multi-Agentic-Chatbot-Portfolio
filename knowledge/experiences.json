@@ -1,0 +1,47 @@
+{
+  "experiences": [
+    {
+      "id": 1,
+      "position": "Team Lead AI Developer",
+      "company": "XAI Morocco",
+      "jobType": "Internship",
+      "location": "Rabat Metropolitan Area, Morocco · Remote",
+      "duration": "Aug 2025 - Sep 2025",
+      "durationShort": "2 months",
+      "description": "Led the development of a Moroccan alternative to OpenRouter, focusing on Arabic/Moroccan use cases, data sovereignty, and developer-friendly APIs",
+      "responsibilities": [
+        "Directed the design and implementation of the LLM API gateway with FastAPI for model serving, API key validation, and intelligent LLM routing",
+        "Supervised the integration of secure authentication and authorization (user login/registration, API key management) with the dashboard UI",
+        "Coordinated frontend and backend development using Next.js, Tailwind, and Shadcn for dashboard, playground, and chat interface",
+        "Oversaw containerization of LLMs with Docker/Ollama for scalable deployment and reproducibility",
+        "Guided the integration of lightweight LLMs (Mistral, LLaMA, DeepSeek, Gemini) and preparation of SDKs for Python/JS developers"
+      ],
+      "tools": [
+        "Next.js",
+        "Supabase",
+        "Docker",
+        "FastAPI",
+        "Grafana",
+        "Prometheus"
+      ],
+      "type": "ai"    },
+    {
+      "id": 2,
+      "position": "Artificial Intelligence Developer",
+      "company": "shiftbricks",
+      "jobType": "Internship",
+      "location": "Al Hoceima, Morocco · Remote",
+      "duration": "Jul 2025 - Sep 2025",
+      "durationShort": "3 months",
+      "description": "Developed an AI-driven multi-agent system for SSIS-to-Databricks migration, enabling organizations to modernize ETL processes faster while reducing manual effort and operational risks.",
+      "responsibilities": [
+        "Designed and implemented a Multi-Layered Analysis Pipeline to parse raw SSIS files, validate data types, and extract complex transformations, providing actionable insights and improving migration accuracy",
+        "Built and coordinated a Migration Agentic System using CrewAI (Manager, Analyst, Planner, Coder, Validator, RAG) to automatically generate production-ready Databricks notebooks and comprehensive migration reports",
+        "Enhanced transparency and decision-making through coordinated multi-agent workflows",
+        "Oversaw end-to-end workflow automation, delivering a fault-tolerant, step-by-step migration solution that accelerated project timelines and optimized resource utilization"
+      ],
+      "tools": ["MemGraph", "Docker", "SQL Server", "PostgreSQL", "CrewAI"],
+      "type": "ai"
+    }
+  ]
+}

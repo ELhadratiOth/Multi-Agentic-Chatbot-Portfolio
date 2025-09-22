@@ -37,6 +37,99 @@ except Exception as e:
     logger.error(f"Failed to initialize embeddings: {str(e)}")
     raise
 
+# Function to convert experiences JSON data to chunks and metadata
+def experiences_to_chunks(data):
+    chunks = []
+    metadata = []
+    
+    try:
+        for experience in data['experiences']:
+            # Main experience info
+            exp_content = (f"Position: {experience['position']}, Company: {experience['company']}, "
+                          f"Job Type: {experience['jobType']}, Location: {experience['location']}, "
+                          f"Duration: {experience['duration']}, Description: {experience['description']}")
+            chunks.append(exp_content)
+            metadata.append({
+                "category": "experiences", 
+                "subcategory": "work_experience", 
+                "id": f"experience_{experience['id']}",
+                "links": [], 
+                "source": "experiences", 
+                "timestamp": "2025-05-11",
+                "company": experience['company'],
+                "position": experience['position']
+            })
+            
+            # Responsibilities
+            if 'responsibilities' in experience:
+                resp_content = f"Responsibilities at {experience['company']}: " + "; ".join(experience['responsibilities'])
+                chunks.append(resp_content)
+                metadata.append({
+                    "category": "experiences", 
+                    "subcategory": "responsibilities", 
+                    "id": f"experience_resp_{experience['id']}",
+                    "links": [], 
+                    "source": "experiences.responsibilities", 
+                    "timestamp": "2025-05-11",
+                    "company": experience['company'],
+                    "position": experience['position']
+                })
+            
+            # Tools/Technologies
+            if 'tools' in experience:
+                tools_content = f"Tools and Technologies used at {experience['company']}: {', '.join(experience['tools'])}"
+                chunks.append(tools_content)
+                metadata.append({
+                    "category": "experiences", 
+                    "subcategory": "tools_technologies", 
+                    "id": f"experience_tools_{experience['id']}",
+                    "links": [], 
+                    "source": "experiences.tools", 
+                    "timestamp": "2025-05-11",
+                    "company": experience['company'],
+                    "position": experience['position']
+                })
+                
+    except KeyError as e:
+        logger.error(f"Missing key in experiences JSON data: {str(e)}")
+        raise
+    except Exception as e:
+        logger.error(f"Error processing experiences JSON data: {str(e)}")
+        raise
+    
+    return chunks, metadata
+
+# Function to convert projects JSON data to chunks and metadata
+def projects_to_chunks(data):
+    chunks = []
+    metadata = []
+    
+    try:
+        for project in data['projects']:
+            # Main project info
+            project_content = (f"Project: {project['serviceName']}, Tools: {', '.join(project['tools'])}, "
+                              f"Type: {project['project_type']}, Link: {project['link']}")
+            chunks.append(project_content)
+            metadata.append({
+                "category": "projects", 
+                "subcategory": project['project_type'], 
+                "id": f"project_{project['id']}",
+                "links": [project['link']] if project['link'] else [], 
+                "source": "projects", 
+                "timestamp": "2025-05-11",
+                "project_type": project['project_type'],
+                "service_name": project['serviceName']
+            })
+                
+    except KeyError as e:
+        logger.error(f"Missing key in projects JSON data: {str(e)}")
+        raise
+    except Exception as e:
+        logger.error(f"Error processing projects JSON data: {str(e)}")
+        raise
+    
+    return chunks, metadata
+
 # Function to convert JSON data to chunks and metadata
 def json_to_chunks(data):
     chunks = []
@@ -127,10 +220,17 @@ def json_to_chunks(data):
 
     return chunks, metadata
 
-# Load and process JSON
+# Load and process JSON files
+all_documents = []
+
+# Process general_data.json
 try:
     with open("general_data.json", "r") as f:
-        json_data = json.load(f)
+        general_data = json.load(f)
+    chunks, metadata = json_to_chunks(general_data)
+    general_documents = [Document(page_content=chunk, metadata=meta) for chunk, meta in zip(chunks, metadata)]
+    all_documents.extend(general_documents)
+    logger.info(f"Processed general_data.json: {len(general_documents)} documents")
 except FileNotFoundError:
     logger.error("JSON file 'general_data.json' not found")
     raise
@@ -138,11 +238,38 @@ except json.JSONDecodeError:
     logger.error("Invalid JSON format in 'general_data.json'")
     raise
 
-# Create chunks and metadata
-chunks, metadata = json_to_chunks(json_data)
+# Process experiences.json
+try:
+    with open("experiences.json", "r") as f:
+        experiences_data = json.load(f)
+    chunks, metadata = experiences_to_chunks(experiences_data)
+    experience_documents = [Document(page_content=chunk, metadata=meta) for chunk, meta in zip(chunks, metadata)]
+    all_documents.extend(experience_documents)
+    logger.info(f"Processed experiences.json: {len(experience_documents)} documents")
+except FileNotFoundError:
+    logger.warning("JSON file 'experiences.json' not found, skipping...")
+except json.JSONDecodeError:
+    logger.error("Invalid JSON format in 'experiences.json'")
+    raise
+
+# Process projects.json
+try:
+    with open("projects.json", "r") as f:
+        projects_data = json.load(f)
+    chunks, metadata = projects_to_chunks(projects_data)
+    project_documents = [Document(page_content=chunk, metadata=meta) for chunk, meta in zip(chunks, metadata)]
+    all_documents.extend(project_documents)
+    logger.info(f"Processed projects.json: {len(project_documents)} documents")
+except FileNotFoundError:
+    logger.warning("JSON file 'projects.json' not found, skipping...")
+except json.JSONDecodeError:
+    logger.error("Invalid JSON format in 'projects.json'")
+    raise
+
+logger.info(f"Total documents to store: {len(all_documents)}")
 
 # Create LangChain Documents
-documents = [Document(page_content=chunk, metadata=meta) for chunk, meta in zip(chunks, metadata)]
+documents = all_documents
 
 # Initialize Qdrant client
 try:
