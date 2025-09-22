@@ -159,7 +159,7 @@ PortfolioChatbot/
 
 ## 🔗 Integration Points
 
-- **Frontend**: Integrated with my portfolio website → [0thman.tech](https://www.0thman.tech)
+- **Frontend**: Integrated with my portfolio website → [0thman.me](https://www.0thman.me)
 - **External Services**:
   - **GitHub API** → Retrieves repository data.
   - **Mem0** → Handles chatbot memory.

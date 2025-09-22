@@ -33,11 +33,11 @@ app = FastAPI(
 )
 
 allowed_origins = [
-    "https://www.0thman.tech" ]
+    "https://www.0thman.me" ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -53,8 +53,8 @@ crew = Crew(
     # manager_llm=llm,
     # manager_agent=agent_manager,
     # output_log_file="./logs/logs.json",
-    planning=True,
-    planning_llm=planner,
+    # planning=True,
+    # planning_llm=planner,
 )
 
 def is_greeting(text: str) -> bool:

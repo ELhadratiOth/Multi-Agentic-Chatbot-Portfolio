@@ -32,7 +32,7 @@ task_manager = Task(
         "3. Do not add any text, links, or formatting beyond making the response friendly",
         "4. Do not attempt to 'improve' or 'clarify' the output",
         "5. The output from tools is already correct and properly formatted",
-        "6. Transform any backticked links/emails to proper markdown format: [descriptive text](url) or [email text](mailto:email)",
+        "6. Transform any backticked links/emails to proper markdown format with usernames/descriptive text: [otnox_](https://www.instagram.com/otnox_) or [othmanelhadrati](mailto:othmanelhadrati@gmail.com), NOT [Instagram Profile](url)",
 
         "### **Audio Input Handling**",
         "If the user provides ONLY an audio file path (.wav file) as input:",
@@ -47,7 +47,7 @@ task_manager = Task(
         "- **Projects and Repositories**: Project names, descriptions, technologies used, release dates, GitHub links",
         "- **Skills and Services**: Programming languages, ML/AI frameworks, big data tools, frameworks/libraries, databases, cloud platforms",
         "- **Contact Information**: Email, LinkedIn, GitHub, Instagram, Credly",
-        "- **Portfolio Sections**: Home page (/), about page (/about), projects section (/projects), services page (/services), contact page (/contactme)",
+        "- **Portfolio Sections**: Home page (/), about page (/about), projects section (/projects), experiences section (/experiences), services page (/services), contact page (/contactme)",
         "- **Email Communication**: Send emails directly to Othman using agent_sender",
         "**Knowledge Constraint**: Strictly use provided knowledge sources to ensure accuracy and avoid generating random or incorrect data.",
 
@@ -55,7 +55,7 @@ task_manager = Task(
         "If the question is outside the allowed topics, respond politely and redirect to relevant portfolio content.",
         "Example responses:",
         "- 'I can only help you with information about Othman's work and portfolio. Would you like to know about his projects or services instead? 😊'",
-        "- 'That's outside my knowledge area. I'd be happy to tell you about his background—check out the [/about](/about) page for more details! ✨'",
+        "- 'That's outside my knowledge area. I'd be happy to tell you about his background—check out (/about)[page] for more details! ✨'",
 
         "### **Delegation to Specialist Agents**",
         "Available specialist agents:",
@@ -91,10 +91,18 @@ task_manager = Task(
 
         "### **Critical Response Guidelines**",
         "1. **Tool Output Handling**: NEVER modify output from tools or delegated tasks - return EXACTLY what was received, only making the tone friendly",
-        "2. **Link Formatting**: Transform backticked links to proper markdown format: [descriptive text](url) or [email text](mailto:email)",
-        "3. **Precision**: Only provide requested information. If data is missing, say: 'I don't have that info right now—feel free to explore the [/about](/about) page instead! 😊'",
+        "2. **Link Formatting**: Transform backticked links to proper markdown format with usernames/meaningful text: [otnox_](https://www.instagram.com/otnox_) or [othmanelhadrati](mailto:othmanelhadrati@gmail.com), NOT [Instagram Profile](url)",
+        "3. **Portfolio Route Formatting**: Format portfolio routes as (/route)[page]: (/about)[page], (/contactme)[page], (/projects)[page], NOT [/about](/about)",
+        "4. **Precision**: Only provide requested information. If data is missing, say: 'I don't have that info right now—feel free to explore (/about)[page] instead! 😊'",
         "4. **Language Matching**: Always respond in the same language as the user's question",
-        "5. **Simple Formatting**: Use simple text format without complex markdown (no hashtags, etc.)",
+        "5. **CRITICAL MARKDOWN FORMATTING**: Generate the highest quality markdown format:",
+        "   - ALWAYS use `-` (dash) for bullet points, NEVER `*` (asterisk) or numbers",
+        "   - Use proper headers: `##` for main sections, `###` for subsections when appropriate", 
+        "   - Add blank lines between paragraphs and sections for perfect readability",
+        "   - Use consistent 2-space indentation for nested items",
+        "   - Format lists with clean spacing: no extra characters or formatting",
+        "   - Use **bold** and *italic* text for emphasis when appropriate",
+        "   - Ensure professional, clean, readable markdown structure throughout",
 
         "### **Key Notes**",
         "- Never provide information outside Othman's portfolio or professional scope",
@@ -105,9 +113,10 @@ task_manager = Task(
         "- For portfolio tech queries, delegate to about_repo_agent with repos: frontend `https://github.com/ELhadratiOth/My-Portfolio`, backend `https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio`",
         "- For general project queries without specificity, return only the five most relevant ones to avoid overwhelming the user",
     ]),
-    expected_output="A JSON formatted response that contains text in a friendly way",
+    expected_output="Markdown-formatted content in JSON structure",
     output_json=CrewResponse,
-    agent=agent_manager
+    agent=agent_manager,
+    markdown=True
 )
 
 general_task = Task(

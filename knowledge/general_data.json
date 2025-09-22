@@ -14,9 +14,9 @@
       "github profile": " `https://www.github.com/ELhadratiOth` ",
       "instagram": " `https://www.instagram.com/otnox_` ",
       "credly": " `https://www.credly.com/users/othman-elhadrati` "
-    } ,
-    "RESUME / CV":{
-      "link" :" `https://www.0thman.tech/assets/MyCV-BADXlD6o.pdf` "
+    },
+    "RESUME / CV": {
+      "link": " `https://www.0thman.me/assets/MyCV-BADXlD6o.pdf` "
     }
   },
   "skills": {
@@ -38,7 +38,7 @@
       "SmolAgent",
       "Llamaindex"
     ],
-    "big data": ["Spark","Kafka", "Sqoop", "Hive"],
+    "big data": ["Spark", "Kafka", "Sqoop", "Hive"],
     "frameworks and libraries": [
       "React",
       "Framer-Motion",
@@ -50,8 +50,6 @@
       "Nextjs",
       "Spring",
       "Spring Boot"
-
-
     ],
     "databases": ["Oracle", "MySQL", "PostgreSQL", "MongoDB"],
     "cloud platforms": ["AWS"],
@@ -94,19 +92,19 @@
         "name": "OCI 2024 Generative AI Certified Professional",
         "provider": "Oracle",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/GenAi-BTsWJ6oO.pdf` "
+        "link": " `https://www.0thman.me/assets/GenAi-BTsWJ6oO.pdf` "
       },
       {
         "name": "Hugging Face Agents Course",
         "provider": "Hugging Face",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/HuggingFace-FM6sgAjF.pdf` "
+        "link": " `https://www.0thman.me/assets/HuggingFace-FM6sgAjF.pdf` "
       },
       {
         "name": "OCI 2024 Certified AI Foundations Associate",
         "provider": "Oracle",
         "date": "2025",
-        "link": " `https://www.0thman.tech/assets/Ai-Cwcp6XJk.pdf` "
+        "link": " `https://www.0thman.me/assets/Ai-Cwcp6XJk.pdf` "
       },
       {
         "name": "Machine Learning Specialization",
@@ -144,7 +142,7 @@
         "name": "Python Certificate",
         "provider": "CodSoft",
         "date": "2024",
-        "link": " `https://www.0thman.tech/assets/CodSoft--CtCbaYN.pdf` "
+        "link": " `https://www.0thman.me/assets/CodSoft--CtCbaYN.pdf` "
       },
       {
         "name": "Database Structures and Management with MySQL",
@@ -173,6 +171,10 @@
       "path": "/projects",
       "description": "Showcase of my projects and repositories"
     },
+    "experiences": {
+      "path": "/experiences",
+      "description": "Professional work experience, internships, and career journey"
+    },
     "contact": {
       "path": "/contactme",
       "description": "Contact form and professional contact information"
@@ -192,11 +194,10 @@
       "response": "You can use the contact form on my portfolio at /contactme to send me a message"
     }
   },
-    "frequently_asked_questions": [
-      {
-        "question": "what is the used technologies in this portfolio ?",
-        "answer": "The UI of this portfolio was created using ReactJS, framer-motion and Tailwind CSS. The backend is powered by FastAPI and CrewAI for creating the the agentic system workflow for more details check this , for the  UI : https://github.com/ELhadratiOth/My-Portfolio  , for the backend : https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio ."
-      }
-    ]
-  
+  "frequently_asked_questions": [
+    {
+      "question": "what is the used technologies in this portfolio ?",
+      "answer": "The UI of this portfolio was created using ReactJS, framer-motion and Tailwind CSS. The backend is powered by FastAPI and CrewAI for creating the the agentic system workflow for more details check this , for the  UI : https://github.com/ELhadratiOth/My-Portfolio  , for the backend : https://github.com/ELhadratiOth/Multi-Agentic-Chatbot-Portfolio ."
+    }
+  ]
 }

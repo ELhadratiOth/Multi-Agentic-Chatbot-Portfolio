@@ -26,9 +26,16 @@ headers = {
 }
 
 @tool("get all the repos of othman")
-def get_all_repos():
+def get_all_repos(count: int = 0):
     """
-    Fetch all repositories for the user 'ELhadratiOth' from GitHub.
+    Fetch repositories for the user 'ELhadratiOth' from GitHub.
+
+    Args:
+        count (int): Number of repositories requested by the user. The function will return count + 1 repositories.
+                    If count is 0 or not specified, returns all repositories.
+                    Examples:
+                    - If user wants the last project (count=1), returns the last 2 projects
+                    - If user wants the last 2 projects (count=2), returns the last 3 projects
 
     Returns:
         List[Dict]: A list of dictionaries containing:
@@ -37,6 +44,8 @@ def get_all_repos():
             - 'Creation Date': str, The date when the repository was created in format 'YYYY-MM-DD'.
     Note:
         - The list is sorted from the newest to the oldest repositories.
+        - Always returns one more repository than requested (count + 1).
+        - Skips the profile repository 'ELhadratiOth' as it's not a project.
         - The original 'Creation Date' format from GitHub API is 'YYYY-MM-DDTHH:MM:SSZ'.
     If no repositories are found or if there's an error, returns a list with a single 
     dictionary explaining the situation or the error details.
@@ -50,6 +59,10 @@ def get_all_repos():
         if repos:
             repo_list = []
             for repo in repos:
+                # Skip the profile repository as it's not a project
+                if repo.get("name", "").lower() == "elhadratioth":
+                    continue
+                    
                 creation_date = datetime.fromisoformat(repo.get("updated_at").replace('Z', '+00:00'))
                 formatted_date = creation_date.strftime('%Y-%m-%d')
                 
@@ -60,7 +73,13 @@ def get_all_repos():
                 }
                 repo_list.append(repo_data)
 
-            return repo_list
+            # If count is specified and > 0, return count + 1 repositories
+            if count > 0:
+                actual_count = count + 1
+                return repo_list[:actual_count]
+            else:
+                # Return all repositories if count is 0 or not specified
+                return repo_list
             
         else:
             return [{"Info": "No repositories found for Othman"}]
@@ -85,12 +104,17 @@ def get_github_file(repo:str) -> str:
     Note:
         - This function assumes the README is named 'README.md'.
         - The content is base64 encoded in GitHub's API response.
+        - Skips the profile repository "ELhadratiOth" as it's not a project.
         
     Example:
         - url : https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP
         - repo : ENSAH-ChatBot-RAG-APP
         how to  call it  : get_github_file("repo")
     """
+    # Skip the profile repository as it's not a project
+    if repo.strip().lower() == "elhadratioth":
+        return "This is a profile repository, not a project. Please specify a different repository name to get project information."
+    
     url = f"https://api.github.com/repos/ELhadratiOth/{repo}/contents/README.md"
 
     response = requests.get(url, headers=headers)
@@ -191,10 +215,23 @@ def transcribe_audio(file_path: str) -> str:
         prompt = "Transcribe this audio file. Only return the transcribed text, nothing else."
         response = model.generate_content([prompt, audio_file])
         
-        # Clean up the uploaded file from Gemini's storage
-        genai.delete_file(audio_file.name)
-        
-        return response.text.strip()
+        # Check if response is valid
+        if response.candidates and response.candidates[0].content and response.candidates[0].content.parts:
+            # Clean up the uploaded file from Gemini's storage
+            genai.delete_file(audio_file.name)
+            return response.text.strip()
+        else:
+            # Handle blocked or empty responses
+            genai.delete_file(audio_file.name)
+            finish_reason = response.candidates[0].finish_reason if response.candidates else "unknown"
+            if finish_reason == 1:
+                return "Error: Audio transcription was blocked due to safety filters. The audio content may contain prohibited material."
+            elif finish_reason == 2:
+                return "Error: Audio transcription reached maximum length limit."
+            elif finish_reason == 3:
+                return "Error: Audio transcription failed due to safety reasons."
+            else:
+                return f"Error: Audio transcription failed (finish_reason: {finish_reason}). Please try with a different audio file."
         
     except FileNotFoundError:
         return f"Error: Audio file not found at {normalized_path if 'normalized_path' in locals() else file_path}"
